@@ -4,11 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var dotenv = require('dotenv').config();
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+// console.log(process.env);
+
+var massive = require('massive')
 
 var app = express();
+var app = module.exports = express()
+
+module.exports = app
+
+var connectionString = "postgres://localhost/travel_helper"
+var db = massive.connectSync({connectionString : connectionString})
+app.set("db", db)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,8 +31,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+var indexRoutes = require('./routes/index');
+app.use('/', indexRoutes);
+
+var usersRoutes = require('./routes/users');
+app.use('/users', usersRoutes);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
