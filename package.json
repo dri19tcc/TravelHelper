@@ -1,0 +1,15 @@
+{
+  "name": "travel_helper",
+  "version": "1.0.0",
+  "description": "A project that will contain a map that lets you pin different points on a map to keep track of what you have done and how close different points of interest are from eachother",
+  "main": "index.js",
+  "dependencies": {
+    "express-generator": "^4.13.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dri19tcc",
+  "license": "MIT"
+}
