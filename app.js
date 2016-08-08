@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv').config();
 
-console.log(process.env);
+// console.log(process.env);
 
 var massive = require('massive')
 
