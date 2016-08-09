@@ -19,3 +19,11 @@ User.find_by_id = function(id, callback) {
 }
 
 module.exports = User
+
+
+// User.findOrCreate({
+//   googleId: profile.id,
+//   googleName: profile.getName,
+//   googleImage: profile.getImageUrl,
+//   googleEmail: profile.getEmail
+// }

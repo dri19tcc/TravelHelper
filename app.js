@@ -20,21 +20,18 @@ var app = module.exports = express()
 
 // authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({
-      googleId: profile.id,
-      googleName: profile.getName,
-      googleImage: profile.getImageUrl,
-      googleEmail: profile.getEmail
-    }, function (err, user) {
-      return cb(err, user);
-    });
-  })
-);
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "http://localhost:3000/auth/google/callback"
+},
+function(accessToken, refreshToken, profile, cb) {
+  // In this example, the user's Google profile is supplied as the user
+  // record.  In a production-quality application, the Google profile should
+  // be associated with a user record in the application's database, which
+  // allows for account linking and authentication with other identity
+  // providers.
+  return cb(null, profile);
+}));
 
 passport.serializeUser(function(user, cb) {
   cb(null, user);
