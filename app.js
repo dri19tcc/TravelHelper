@@ -72,8 +72,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 var indexRoutes = require('./routes/index');
 app.use('/', indexRoutes);
 
-var usersRoutes = require('./routes/users');
-app.use('/users', usersRoutes);
+// var usersRoutes = require('./routes/users');
+// app.use('/users', usersRoutes);
 
 var authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
