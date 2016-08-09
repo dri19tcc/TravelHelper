@@ -33,8 +33,8 @@ passport.use(new GoogleStrategy({
     }, function (err, user) {
       return cb(err, user);
     });
-  }
-));
+  })
+);
 
 passport.serializeUser(function(user, cb) {
   cb(null, user);
@@ -47,7 +47,8 @@ passport.deserializeUser(function(obj, cb) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(session)({
+app.use(session({
+  secret: process.env.TOPSECRET,
   resave: true,
   saveUninitialized: true
 }));
