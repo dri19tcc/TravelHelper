@@ -18,16 +18,34 @@ var app = module.exports = express()
 
 // authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
 passport.use(new GoogleStrategy({
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://www.example.com/auth/google/callback"
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    User.findOrCreate({
+      googleId: profile.id,
+      googleName: profile.getName,
+      googleImage: profile.getImageUrl,
+      googleEmail: profile.getEmail
+    }, function (err, user) {
       return cb(err, user);
     });
   }
 ));
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+  cb(null, obj);
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 
 var connectionString = "postgres://localhost/travel_helper"
 var db = massive.connectSync({connectionString : connectionString})
@@ -51,7 +69,8 @@ app.use('/', indexRoutes);
 var usersRoutes = require('./routes/users');
 app.use('/users', usersRoutes);
 
-
+var loginRoutes = require('./routes/login');
+app.use('/login', loginRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
