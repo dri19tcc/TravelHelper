@@ -8,15 +8,15 @@ var User = function (user) {
   this.image_url = user.image_url
 };
 
-User.find_by_id = function(id, callback) {
-  db.users.findOne({id: id}, function(error, user) {
-    if(error || !user) {
-      callback(new Error("User not found"), undefined)
-    } else {
-      callback(null, new User(user))
-    }
-  })
-}
+// User.find_by_id = function(id, callback) {
+//   db.users.findOne({id: id}, function(error, user) {
+//     if(error || !user) {
+//       callback(new Error("User not found"), undefined)
+//     } else {
+//       callback(null, new User(user))
+//     }
+//   })
+// }
 
 module.exports = User
 
