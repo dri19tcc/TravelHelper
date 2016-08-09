@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport'); // For google oauth
 
 router.get('/google',
   passport.authenticate('google', {
@@ -8,10 +9,10 @@ router.get('/google',
 
 router.get('/google/callback',
   passport.authenticate('google', {
-    failureRedirect: '/login'
+    failureRedirect: '/auth'
   }), function(req, res) {
     // Successful authentication, redirect home.
-  res.redirect('/');
+  res.redirect('/auth');
 });
 
 module.exports = router;
