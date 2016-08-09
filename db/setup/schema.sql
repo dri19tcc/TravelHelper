@@ -30,5 +30,5 @@ DROP TABLE IF EXISTS activity_tag;
 CREATE TABLE activity(
   id serial PRIMARY KEY,
   activity_id int,
-  tag_id int,
+  tag_id int
 );
