@@ -16,6 +16,19 @@ var massive = require('massive')
 var app = module.exports = express()
 // module.exports = app
 
+// authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://www.example.com/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+
 var connectionString = "postgres://localhost/travel_helper"
 var db = massive.connectSync({connectionString : connectionString})
 app.set("db", db)
