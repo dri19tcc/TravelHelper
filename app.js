@@ -4,16 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var dotenv = require('dotenv').config();
 
-// console.log(process.env);
+var dotenv = require('dotenv').config(); // Use to keep keys secret (console.log(process.env);)
+
+var passport = require('passport'); // For google oauth
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 var massive = require('massive')
 
-var app = express();
+// var app = express();
 var app = module.exports = express()
-
-module.exports = app
+// module.exports = app
 
 var connectionString = "postgres://localhost/travel_helper"
 var db = massive.connectSync({connectionString : connectionString})
