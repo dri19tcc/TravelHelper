@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var session = require('express-session');
+
 var dotenv = require('dotenv').config(); // Use to keep keys secret (console.log(process.env);)
 
 var passport = require('passport'); // For google oauth
@@ -45,7 +47,10 @@ passport.deserializeUser(function(obj, cb) {
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+app.use(session)({
+  resave: true,
+  saveUninitialized: true
+}));
 
 var connectionString = "postgres://localhost/travel_helper"
 var db = massive.connectSync({connectionString : connectionString})
