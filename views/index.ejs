@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> <!-- Brings in Bootstrap -->
     <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- This is to use OAuth sign in -->
-    <!-- <meta name="google-signin-client_id" content="process.env.GOOGLE_CLIENT_ID"> -->
   </head>
   <body>
     <div>
@@ -18,15 +17,12 @@
             <li><a href="/contact">Contact us</a></li> <!-- Does not work yet -->
           </ul>
           <ul class="nav navbar-nav navbar-right" role="navigation" style="padding: 0 3rem;">
-            <!-- <div class="g-signin2" data-onsuccess="onSignIn"> -->
-
             <% if (!loggedIn) { %>
               <li><a href="/auth/google">Sign In</a></li>
             <% } else { %>
+              <img src="<%= image %>"/>
               <li><a href="/auth/google">Sign Out</a></li>
             <% } %>
-
-            <!-- </div> -->
           </ul>
         </nav>
       </div>
