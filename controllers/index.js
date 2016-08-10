@@ -25,6 +25,13 @@ IndexController = {
         loggedIn: loggedIn  // This is for the sign in/logout feature
       })
     }
+  },
+
+  getLogout: function(req, res) {
+    req.logout();
+    req.session.destroy();
+    console.log("this is the session: ", req.session);
+    res.redirect('/');
   }
 }
   module.exports = IndexController;

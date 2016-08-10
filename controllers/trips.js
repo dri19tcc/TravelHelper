@@ -1,5 +1,9 @@
 var Trips = require('../models/trip');
 
-TripsController = {}
+TripsController = {
+  getTrips: function(req, res) {
+    res.status(200).json({whatevs: 'whatevs!!!'})
+  }
+}
 
-module.exports = IndexController;
+module.exports = TripsController;
