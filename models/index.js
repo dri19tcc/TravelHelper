@@ -2,7 +2,6 @@ var app = require('../app');
 var db = app.get('db');
 
 var User = function (user) {
-  console.log("this is this: ", this);
   this.google_id = user.google_id;
   this.name = user.name;
   this.image_url = user.image_url;
