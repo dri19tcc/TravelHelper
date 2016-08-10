@@ -17,8 +17,8 @@ IndexController = {
             loggedIn: loggedIn  // This is for the sign in/logout feature
           })
         }
-      }) // need callback function
-      console.log(req.session.passport.user);
+      })
+      // console.log(req.session.passport.user);
     }
   }
 
