@@ -4,24 +4,30 @@ IndexController = {
 
   getIndex: function(req, res) {
     if (req.session.passport) { // if req.session.passport.id exists then user is currently signed in
+      console.log("hello, first thing");
       var user = req.session.passport.user;
       Index.findOrCreate(user, function(error, result, next) {
         if (error) {
-          next(error);
+          console.log("error: ", error);
+            next(error);
         } else {
-          // var locals = IndexController.locals
-          // console.log(locals);
           var loggedIn = req.session.passport ? true : false;
+          console.log("THIS IS THE RESULT: ", result);
           res.render('index', {
             title: "Travel Helper",
-            loggedIn: loggedIn  // This is for the sign in/logout feature
+            loggedIn: loggedIn,  // This is for the sign in/logout feature
+            username: result.name
           })
         }
       })
-      // console.log(req.session.passport.user);
+    } else {
+      // console.log(req.session.passport);
+      var loggedIn = req.session.passport ? true : false;
+      res.render('index', {
+        title: "Travel Helper",
+        loggedIn: loggedIn  // This is for the sign in/logout feature
+      })
     }
   }
-
 }
-
-module.exports = IndexController;
+  module.exports = IndexController;

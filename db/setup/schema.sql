@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users(
   id serial PRIMARY KEY,
   name text,
-  googleID text,
+  google_id text,
   image_url text
 );
 
@@ -20,14 +20,14 @@ CREATE TABLE activity(
 );
 
 DROP TABLE IF EXISTS user_tag;
-CREATE TABLE activity(
+CREATE TABLE user_tag(
   id serial PRIMARY KEY,
   user_id int,
   tag_id int
 );
 
 DROP TABLE IF EXISTS activity_tag;
-CREATE TABLE activity(
+CREATE TABLE activity_tag(
   id serial PRIMARY KEY,
   activity_id int,
   tag_id int
