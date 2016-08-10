@@ -12,9 +12,10 @@ var dotenv = require('dotenv').config(); // Use to keep keys secret (console.log
 var passport = require('passport'); // For google oauth
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-var massive = require('massive')
+var massive = require('massive');
+var http = require('http');
 
-var app = module.exports = express()
+var app = module.exports = express();
 
 passport.use(new GoogleStrategy({ // authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
   clientID: process.env.GOOGLE_CLIENT_ID,
@@ -42,9 +43,10 @@ app.use(session({
   saveUninitialized: true
 }));
 
-var connectionString = "postgres://localhost/travel_helper"
-var db = massive.connectSync({connectionString : connectionString})
-app.set("db", db)
+var connectionString = "postgres://localhost/travel_helper";
+var db = massive.connectSync({connectionString : connectionString});
+app.set("db", db);
+http.createServer(app).listen(8080);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
