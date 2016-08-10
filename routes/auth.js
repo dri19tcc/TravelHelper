@@ -4,16 +4,17 @@ var passport = require('passport'); // For google oauth
 
 router.get('/google',
   passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/',
     scope: ['profile']
-  }));
+}));
+
 
 router.get('/google/callback',
   passport.authenticate('google', {
-    failureRedirect: '/'
-  }), function(req, res) {
-    // Successful authentication, redirect home.
-    console.log("Auth Success!!!");
-  res.redirect('/');
-});
+    failureRedirect: '/',
+    successRedirect: '/',
+    scope: ['profile']
+}));
 
 module.exports = router;
