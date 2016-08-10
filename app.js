@@ -14,22 +14,14 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 var massive = require('massive')
 
-// var app = express();
 var app = module.exports = express()
-// module.exports = app
 
-// authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
-passport.use(new GoogleStrategy({
+passport.use(new GoogleStrategy({ // authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: "http://localhost:3000/auth/google/callback"
 },
 function(accessToken, refreshToken, profile, cb) {
-  // In this example, the user's Google profile is supplied as the user
-  // record.  In a production-quality application, the Google profile should
-  // be associated with a user record in the application's database, which
-  // allows for account linking and authentication with other identity
-  // providers.
   return cb(null, profile);
 }));
 
@@ -82,10 +74,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
-
-// development error handler
-// will print stacktrace
+// development error handler, and will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -96,8 +85,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// production error handler, and no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
@@ -105,6 +93,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

@@ -1,4 +1,4 @@
-var Index = require('../models/auth');
+var Index = require('../models/index');
 
 IndexController = {
 
@@ -7,7 +7,10 @@ IndexController = {
       console.log(req.session.passport.user);
     }
     var loggedIn = req.session.passport ? true : false;
-    res.render('index', {title: "Travel Helper", loggedIn: loggedIn}) // can pass a boolean and can change to logout
+    res.render('index', {
+      title: "Travel Helper",
+      loggedIn: loggedIn  // This is for the sign in/logout feature
+    })
   }
 
 
