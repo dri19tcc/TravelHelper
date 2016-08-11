@@ -45,11 +45,21 @@ IndexController = {
   },
 
   newTrips: function(req, res) {
-    res.status(200).json({whatevs: 'whatevs!!!'})
+    var loggedIn = req.session.passport ? true : false;
+
+    res.render('trips', {
+      title: "Travel Helper",
+      loggedIn: loggedIn  // This is for the sign in/logout feature
+    })
   },
 
   getTrips: function(req, res) {
-    res.status(200).json({yaya: 'yaya!!!'})
+    var loggedIn = req.session.passport ? true : false;
+
+    res.render('mytrip', {
+      title: "Travel Helper",
+      loggedIn: loggedIn  // This is for the sign in/logout feature
+    })
   }
 }
   module.exports = IndexController;
