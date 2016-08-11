@@ -66,8 +66,8 @@ app.use('/', indexRoutes);
 var authRoutes = require('./routes/auth');
 app.use('/auth', authRoutes);
 
-var tripsRoutes = require('./routes/trips');
-app.use('/trips', tripsRoutes);
+// var tripsRoutes = require('./routes/trips');
+// app.use('/trips', tripsRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -44,8 +44,12 @@ IndexController = {
     }
   },
 
-  getTrips: function(req, res) {
+  newTrips: function(req, res) {
     res.status(200).json({whatevs: 'whatevs!!!'})
+  },
+
+  getTrips: function(req, res) {
+    res.status(200).json({yaya: 'yaya!!!'})
   }
 }
   module.exports = IndexController;
