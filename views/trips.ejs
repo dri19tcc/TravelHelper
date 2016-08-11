@@ -29,7 +29,17 @@
       <h1><%= title %></h1>
       <h3>TRIPS PAGE!!!!</h3>
 
-      
+      <h5>Create a New Trip</h5>
+
+      <form action="" method="post">
+        <label>Name of Trip: </label>
+        <input type="text" name="name" placeholder="Insert Text Here" >
+
+        <input type="submit" value="Submit">
+      </form>
+
+      <br />
+      <br />
 
       <table>
         <% for(var i=0; i < trips.length; i++) { %>
