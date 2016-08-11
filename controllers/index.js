@@ -1,4 +1,5 @@
 var Index = require('../models/index');
+var Trips = require('../models/trip');
 
 IndexController = {
 
