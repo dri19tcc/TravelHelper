@@ -6,24 +6,24 @@ CREATE TABLE users(
   image_url text
 );
 
-DROP TABLE IF EXISTS tag;
+DROP TABLE IF EXISTS tag; --This is the trip as a whole
 CREATE TABLE tag(
   id serial PRIMARY KEY,
   name text,
   modified_date date
 );
 
-DROP TABLE IF EXISTS activity;
-CREATE TABLE activity(
-  id serial PRIMARY KEY
-  -- More will go here, still deciding what
-);
-
-DROP TABLE IF EXISTS user_tag;
+DROP TABLE IF EXISTS user_tag; --Joining table for a users trip
 CREATE TABLE user_tag(
   id serial PRIMARY KEY,
   user_id int,
   tag_id int
+);
+
+DROP TABLE IF EXISTS activity;
+CREATE TABLE activity(
+  id serial PRIMARY KEY
+  -- More will go here, still deciding what
 );
 
 DROP TABLE IF EXISTS activity_tag;
