@@ -1,11 +1,9 @@
 [
 {
-"id": 1,
 "name": "San Francisco",
 "modified_date": "2016-08-11T20:33:50.496Z"
 },
 {
-"id": 2,
 "name": "Seattle",
 "modified_date": "2016-09-11T20:33:50.496Z"
 }
