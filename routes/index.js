@@ -9,4 +9,6 @@ router.get('/logout', Controller.getLogout);
 router.get('/trips', Controller.isLoggedIn, Controller.newTrips);
 router.get('/trips/:id', Controller.getTrips)
 
+router.post('/trips/new', Controller.createTrip);
+
 module.exports = router;
