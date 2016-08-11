@@ -56,6 +56,8 @@ IndexController = {
         console.log("THIS IS THE RESULT: ", result);
         res.render('trips', {
           title: "Travel Helper",
+          trips: result,
+          loggedIn: loggedIn
         })
       }
     });

@@ -1,1 +1,39 @@
-<h1>TRIPS PAGE!!!!</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> <!-- Brings in Bootstrap -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- This is to use OAuth sign in -->
+  </head>
+  <body>
+    <div>
+      <div>
+        <nav class="navbar navbar-inverse" role="navigation">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/trips">Your Trips</a></li> <!-- Does not work yet -->
+            <li><a href="/contact">Contact us</a></li> <!-- Does not work yet -->
+          </ul>
+          <ul class="nav navbar-nav navbar-right" role="navigation" style="padding: 0 3rem;">
+            <% if (!loggedIn) { %>
+              <li><a href="/auth/google">Sign In</a></li>
+            <% } else { %>
+              <li><a href="/logout">Sign Out</a></li>
+            <% } %>
+          </ul>
+        </nav>
+        <h1>TRIPS PAGE!!!!</h1>
+      </div>
+      <br/>
+      <h1><%= title %></h1>
+
+      
+      <%= JSON.stringify(trips) %>
+
+
+
+    </div>
+  </body>
+</html>
