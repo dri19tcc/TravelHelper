@@ -2,6 +2,10 @@ var app = require('../app');
 var db = app.get('db');
 
 var Trip = function() {
+  this.tripID = ,
+  this.tripName = ,
+  this.tripUpdate
+  trips: []
   console.log("this is this: ", this);
 };
 
@@ -13,6 +17,7 @@ Trip.find_all = function(googleID, callback) {
       if (res) {
         var user = res;
         console.log("This is user", user);
+
       }
     }
   });
