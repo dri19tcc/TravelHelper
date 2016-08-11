@@ -58,6 +58,20 @@ IndexController = {
     });
   },
 
+  createTrip: function(req, res, next) {
+    console.log(req.body)
+    Trips.new([req.body], function(error, trip) {
+      if(error) {
+      var err = new Error("Error creating movie:\n" + error.message);
+      err.status = 500;
+      next(err);
+      } else {
+        console.log(item)
+        res.redirect('http://localhost:3000/movies/'+item.id);
+      }
+    })
+  },
+
   getTrips: function(req, res) {
     console.log("This is req in new trips", req);
 

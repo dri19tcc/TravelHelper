@@ -12,7 +12,7 @@ User.findOrCreate = function(user, callback) {
 
   db.users.findOne({google_id: googleID}, function(error, result) {
     if (error) {
-      callback(error, undefined)
+      callback(error, undefined);
     } else {
       if (result) {
         var newUser = new User(result)

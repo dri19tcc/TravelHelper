@@ -9,9 +9,13 @@ var Trip = function(trip) {
 
 Trip.find_all = function(googleID, callback) {
   db.find_all_tags([googleID], function(error, trips) {
-    callback(null, trips.map(function(trip) {
-      return new Trip(trip)
-    }));
+    if (error) {
+      callback(error, undefined);
+    } else {
+      callback(null, trips.map(function(trip) {
+        return new Trip(trip)
+      }));
+    };
   });
 };
 
