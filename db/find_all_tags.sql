@@ -1,8 +1,8 @@
-SELECT movies.id, rentals.movie_id, rentals.customer_id, rentals.status, customers.*
-FROM rentals
-INNER JOIN movies
-ON movies.id=rentals.movie_id
-INNER JOIN customers
-ON rentals.customer_id=customers.id
-WHERE movies.title=$1
-ORDER BY customers.name;
+
+SELECT tag.id, tag.name, tag.modified_date, users.google_id, users.id, user_tag.tag_id, user_tag.user_id
+FROM users
+INNER JOIN user_tag
+ON users.id=user_tag.user_id
+INNER JOIN tag
+ON user_tag.tag_id=tag.id
+WHERE users.google_id=$1;

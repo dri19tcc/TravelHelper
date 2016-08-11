@@ -44,6 +44,7 @@ IndexController = {
 
 
 
+
   newTrips: function(req, res) {
     // console.log("This is req in new trips", req);
     var loggedIn = req.session.passport ? true : false;
@@ -59,11 +60,12 @@ IndexController = {
       }
     });
 
-    res.render('trips', {
-      title: "Travel Helper",
-      loggedIn: loggedIn  // This is for the sign in/logout feature
-    });
+    // res.render('trips', {
+    //   title: "Travel Helper",
+    //   loggedIn: loggedIn  // This is for the sign in/logout feature
+    // });
   },
+
 
 
 
