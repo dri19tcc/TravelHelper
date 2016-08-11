@@ -30,8 +30,17 @@ IndexController = {
   getLogout: function(req, res) {
     req.logout();
     req.session.destroy();
-    console.log("this is the session: ", req.session);
     res.redirect('/');
+  },
+
+  isLoggedIn: function(req, res, next) {
+    console.log(req.isAuthenticated());
+    if (req.isAuthenticated()) {
+      console.log('success');
+      next();
+    } else {
+      res.redirect('/');
+    }
   }
 }
   module.exports = IndexController;
