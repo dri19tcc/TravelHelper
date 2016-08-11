@@ -41,6 +41,10 @@ IndexController = {
     } else {
       res.redirect('/');
     }
+  },
+
+  getTrips: function(req, res) {
+    res.status(200).json({whatevs: 'whatevs!!!'})
   }
 }
   module.exports = IndexController;

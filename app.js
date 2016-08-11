@@ -39,14 +39,14 @@ passport.deserializeUser(function(obj, cb) {
   cb(null, obj);
 });
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(session({
   secret: process.env.TOPSECRET,
   resave: true,
   saveUninitialized: true
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
