@@ -24,15 +24,21 @@
             <% } %>
           </ul>
         </nav>
-        <h1>TRIPS PAGE!!!!</h1>
       </div>
       <br/>
       <h1><%= title %></h1>
+      <h3>TRIPS PAGE!!!!</h3>
 
       
-      <%= JSON.stringify(trips) %>
 
-
+      <table>
+        <% for(var i=0; i < trips.length; i++) { %>
+        <tr>
+          <td><%= trips[i].tripName %></td>
+          <td><%= trips[i].tripUpdate %></td>
+        </tr>
+        <% } %>
+      </table>
 
     </div>
   </body>

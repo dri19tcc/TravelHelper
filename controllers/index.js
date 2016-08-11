@@ -42,18 +42,13 @@ IndexController = {
     }
   },
 
-
-
-
   newTrips: function(req, res) {
-    // console.log("This is req in new trips", req);
     var loggedIn = req.session.passport ? true : false;
     var google_id = req.session.passport.user.id;
     Trips.find_all(google_id, function(error, result, next) {
       if (error) {
         new Error(error);
       } else {
-        console.log("THIS IS THE RESULT: ", result);
         res.render('trips', {
           title: "Travel Helper",
           trips: result,
@@ -63,22 +58,11 @@ IndexController = {
     });
   },
 
-
-
-
-
-
-
-
-
   getTrips: function(req, res) {
     console.log("This is req in new trips", req);
 
-    var loggedIn = req.session.passport ? true : false;
-
     res.render('mytrip', {
       title: "Travel Helper",
-      loggedIn: loggedIn  // This is for the sign in/logout feature
     })
   }
 }
