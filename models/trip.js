@@ -44,5 +44,15 @@ Trip.new = function(params, callback) {
   })
 }
 
+Trip.findOneTrip = function(tripID, callback) {
+  db.tag.findOne({id: tripID}, function(error, trip) {
+    if (error) {
+      callback(error, undefined);
+    } else {
+      callback(trip);
+    };
+  });
+}
+
 
 module.exports = Trip;

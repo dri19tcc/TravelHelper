@@ -44,7 +44,7 @@
       <table>
         <% for(var i=0; i < trips.length; i++) { %>
         <tr>
-          <td><%= trips[i].tripName %></td>
+          <td><a href='<%= "/trips/" + trips[i].tripID %>'><%= trips[i].tripName %></a></td>
           <td><%= trips[i].tripUpdate %></td>
         </tr>
         <% } %>

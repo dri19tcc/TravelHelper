@@ -7,7 +7,7 @@ var Controller = require('../controllers/index');
 router.get('/', Controller.getIndex);
 router.get('/logout', Controller.getLogout);
 router.get('/trips', Controller.isLoggedIn, Controller.newTrips);
-router.get('/trips/:id', Controller.showTrip)
+router.get('/trips/:id', Controller.showTrip);
 
 router.post('/trips/new', Controller.createTrip);
 
