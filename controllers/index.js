@@ -68,8 +68,7 @@ IndexController = {
       err.status = 500;
       next(err);
       } else {
-        // console.log(trip)
-        res.redirect('http://localhost:3000/trip/' + trip.id);
+        res.redirect('/trips/' + trip.id);
       }
     })
   },
@@ -78,9 +77,9 @@ IndexController = {
 
 
 
-  getTrips: function(req, res) {
+  showTrip: function(req, res) {
     // console.log("This is req in new trips", req);
-
+//database call, look up current trip, and the map and all the points.  This is a complex function
     res.render('mytrip', {
       title: "Travel Helper",
     })

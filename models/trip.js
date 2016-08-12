@@ -23,8 +23,9 @@ Trip.new = function(params, callback) {
   // console.log(params[0].name);
   db.tag.insert({name: params[0].name, modified_date: new Date()},function(error, item) {
     if(error || !item) {
-      callback(error || new Error("Could not retrieve movie"), undefined);
+      callback(error || new Error("Could not retrieve tag"), undefined);
     } else {
+      // need to update user tag table to assign item.id to user_id, expand params from controller, pass user id which is in request
       callback(null, item);
     }
   })
