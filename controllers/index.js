@@ -61,14 +61,14 @@ IndexController = {
 
 
   createTrip: function(req, res, next) {
-    console.log(req.body)
+    console.log("this is req.body", req.body)
     Trips.new([req.body], function(error, trip) {
       if(error) {
       var err = new Error("Error creating trip:\n" + error.message);
       err.status = 500;
       next(err);
       } else {
-        console.log(trip)
+        // console.log(trip)
         res.redirect('http://localhost:3000/trip/' + trip.id);
       }
     })
@@ -79,7 +79,7 @@ IndexController = {
 
 
   getTrips: function(req, res) {
-    console.log("This is req in new trips", req);
+    // console.log("This is req in new trips", req);
 
     res.render('mytrip', {
       title: "Travel Helper",

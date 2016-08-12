@@ -7,7 +7,7 @@ var Trip = function(trip) {
   this.tripUpdate = trip.modified_date
 };
 
-Trip.find_all = function(googleID, callback) {
+Trip.find_all = function(googleID, callback) { // left join instead of inner join
   db.find_all_tags([googleID], function(error, trips) {
     if (error) {
       callback(error, undefined);
@@ -18,6 +18,17 @@ Trip.find_all = function(googleID, callback) {
     };
   });
 };
+
+Trip.new = function(params, callback) {
+  // console.log(params[0].name);
+  db.tag.insert({name: params[0].name, modified_date: new Date()},function(error, item) {
+    if(error || !item) {
+      callback(error || new Error("Could not retrieve movie"), undefined);
+    } else {
+      callback(null, item);
+    }
+  })
+}
 
 
 module.exports = Trip;
