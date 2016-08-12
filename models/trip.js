@@ -26,7 +26,7 @@ Trip.new = function(params, callback) {
     if(error || !item) {
       callback(error || new Error("Could not retrieve tag"), undefined);
     } else {
-      db.find_user_id([google_id], function(error, user) {
+      db.users.findOne({google_id: google_id}, function(error, user) {
         if (error) {
           callback(error, undefined);
         } else {
