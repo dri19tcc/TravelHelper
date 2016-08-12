@@ -30,7 +30,7 @@ Trip.new = function(params, callback) {
         if (error) {
           callback(error, undefined);
         } else {
-          db.user_tag.save({user_id: user[0].id, tag_id: item.id}, function(err, res) {
+          db.user_tag.save({user_id: user.id, tag_id: item.id}, function(err, res) {
             if (error) {
               callback(error, undefined);
             } else {
@@ -40,20 +40,19 @@ Trip.new = function(params, callback) {
         };
       });
       callback(null, item);
-    }
-  })
-}
+    };
+  });
+};
 
 Trip.findOneTrip = function(tripID, callback) {
   db.tag.findOne({id: tripID}, function(error, trip) {
     if (error) {
       callback(error, undefined);
     } else {
-      // console.log(trip);
       callback(null, trip);
     };
   });
-}
+};
 
 
 module.exports = Trip;

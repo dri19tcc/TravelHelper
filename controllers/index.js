@@ -69,12 +69,8 @@ IndexController = {
       } else {
         res.redirect('/trips/' + trip.id);
       }
-    })
+    });
   },
-
-
-
-
 
   showTrip: function(req, res) { //database call, look up current trip, and the map and all the points.  This is a complex function
     var tripID = req.params.id;
@@ -90,9 +86,25 @@ IndexController = {
           trip: trip,
           loggedIn: loggedIn
         })
-      }
-    })
+      };
+    });
 
+  },
+
+  createActivity: function(req, res) {
+    console.log(req.body);
+    // var tripName = req.body;
+    // var user = req.user.id;
+    // Trips.new([tripName, user], function(error, trip) {
+    //   if(error) {
+    //   var err = new Error("Error creating trip:\n" + error.message);
+    //   err.status = 500;
+    //   next(err);
+    //   } else {
+    //     res.redirect('/trips/' + trip.id);
+    //   }
+    // });
+    res.redirect('/trips/1');
   }
 }
 
