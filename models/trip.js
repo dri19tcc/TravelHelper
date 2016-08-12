@@ -49,7 +49,8 @@ Trip.findOneTrip = function(tripID, callback) {
     if (error) {
       callback(error, undefined);
     } else {
-      callback(trip);
+      // console.log(trip);
+      callback(null, trip);
     };
   });
 }

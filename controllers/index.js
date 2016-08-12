@@ -45,7 +45,7 @@ IndexController = {
   newTrips: function(req, res) {
     var loggedIn = req.session.passport ? true : false;
     var google_id = req.session.passport.user.id;
-    Trips.find_all(google_id, function(error, result, next) {
+    Trips.find_all(google_id, function(error, result) {
       if (error) {
         new Error(error);
       } else {
@@ -76,17 +76,14 @@ IndexController = {
 
 
 
-  showTrip: function(req, res) {
+  showTrip: function(req, res) { //database call, look up current trip, and the map and all the points.  This is a complex function
     var tripID = req.params.id;
-    console.log("This is req in new trips", req.params.id);
-    //database call, look up current trip, and the map and all the points.  This is a complex function
     var loggedIn = req.session.passport ? true : false;
 
     Trips.findOneTrip(tripID, function(error, trip) {
       if(error) {
         var err = new Error("Could not find trip:\n" + error.message);
         err.status = 500;
-        next(err);
       } else {
         res.render('maptrip', {
           title: "Travel Helper",

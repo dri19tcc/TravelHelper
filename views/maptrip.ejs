@@ -31,23 +31,21 @@
 
       <h5>Add Activity</h5>
 
-      <form action="trips/new" method="post">
+      <!-- <form action="trips/new" method="post">
         <label>Name of Trip: </label>
         <input type="text" name="name" placeholder="Insert Text Here" >
 
         <input type="submit" value="Submit">
-      </form>
+      </form> -->
 
       <br />
       <br />
 
       <table>
-        <% for(var i=0; i < trips.length; i++) { %>
         <tr>
-          <td><a href='<%= "/trips/" + trips[i].tripID %>'><%= trips[i].tripName %></a></td>
-          <td><%= trips[i].tripUpdate %></td>
+          <td><a href='<%= "/trips/" + trip.id %>'><%= trip.name %></a></td>
+          <td><%= trip.modified_date %></td>
         </tr>
-        <% } %>
       </table>
 
     </div>
