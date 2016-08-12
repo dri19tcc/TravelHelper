@@ -20,8 +20,9 @@ Trip.find_all = function(googleID, callback) { // left join instead of inner joi
 };
 
 Trip.new = function(params, callback) {
-  // console.log(params[0].name);
-  db.tag.insert({name: params[0].name, modified_date: new Date()},function(error, item) {
+  var name = params[0].name;
+  var user = params[1];
+  db.tag.insert({name: name, modified_date: new Date()},function(error, item) {
     if(error || !item) {
       callback(error || new Error("Could not retrieve tag"), undefined);
     } else {

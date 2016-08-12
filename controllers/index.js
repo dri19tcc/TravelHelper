@@ -61,8 +61,9 @@ IndexController = {
 
 
   createTrip: function(req, res, next) {
-    console.log("this is req.body", req.body)
-    Trips.new([req.body], function(error, trip) {
+    var tripName = req.body;
+    var user = req.user.id;
+    Trips.new([tripName, user], function(error, trip) {
       if(error) {
       var err = new Error("Error creating trip:\n" + error.message);
       err.status = 500;
