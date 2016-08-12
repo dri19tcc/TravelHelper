@@ -21,12 +21,28 @@ Trip.find_all = function(googleID, callback) { // left join instead of inner joi
 
 Trip.new = function(params, callback) {
   var name = params[0].name;
-  var user = params[1];
+  var google_id = params[1]; // this gives the google_id
   db.tag.insert({name: name, modified_date: new Date()},function(error, item) {
     if(error || !item) {
       callback(error || new Error("Could not retrieve tag"), undefined);
     } else {
-      // need to update user tag table to assign item.id to user_id, expand params from controller, pass user id which is in request
+      db.find_user_id([google_id], function(error, user) {
+        if (error) {
+          callback(error, undefined);
+        } else {
+          // callback(null, user)
+          db.user_tag.save({user_id: user[0].id, tag_id: item.id}, function(err, res) {
+            if (error) {
+              callback(error, undefined);
+            } else {
+              console.log("table updated");
+            };
+          })
+        };
+      });
+      // need to update user tag table to assign item.id to user_id, expand params
+      //from controller, pass user id which is in request
+
       callback(null, item);
     }
   })
