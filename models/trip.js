@@ -7,7 +7,7 @@ var Trip = function(trip) {
   this.tripUpdate = trip.modified_date
 };
 
-Trip.find_all = function(googleID, callback) { // left join instead of inner join
+Trip.find_all = function(googleID, callback) { // left join instead of inner join?
   db.find_all_tags([googleID], function(error, trips) {
     if (error) {
       callback(error, undefined);
@@ -30,19 +30,15 @@ Trip.new = function(params, callback) {
         if (error) {
           callback(error, undefined);
         } else {
-          // callback(null, user)
           db.user_tag.save({user_id: user[0].id, tag_id: item.id}, function(err, res) {
             if (error) {
               callback(error, undefined);
             } else {
-              console.log("table updated");
+              // console.log("table updated");
             };
           })
         };
       });
-      // need to update user tag table to assign item.id to user_id, expand params
-      //from controller, pass user id which is in request
-
       callback(null, item);
     }
   })

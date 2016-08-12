@@ -58,8 +58,6 @@ IndexController = {
     });
   },
 
-
-
   createTrip: function(req, res, next) {
     var tripName = req.body;
     var user = req.user.id;
@@ -81,9 +79,15 @@ IndexController = {
   showTrip: function(req, res) {
     // console.log("This is req in new trips", req);
 //database call, look up current trip, and the map and all the points.  This is a complex function
-    res.render('mytrip', {
+    res.render('maptrip', {
       title: "Travel Helper",
     })
   }
 }
+
+
+
+
+
+
   module.exports = IndexController;
