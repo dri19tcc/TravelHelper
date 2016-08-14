@@ -54,5 +54,9 @@ Trip.findOneTrip = function(tripID, callback) {
   });
 };
 
+Trip.newActivity = function(params, callback) {
+  console.log(params);
+}
+
 
 module.exports = Trip;

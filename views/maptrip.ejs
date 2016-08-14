@@ -34,6 +34,7 @@
       <form action="/trips/new-activity" method="post">
         <label>Name of Activity: </label>
         <input type="text" name="name" placeholder="Insert Text Here" >
+        <input type="hidden" name="id" value="<%= trip.id %>" >
 
         <input type="submit" value="Submit">
       </form>

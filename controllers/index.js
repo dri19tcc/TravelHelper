@@ -92,9 +92,8 @@ IndexController = {
   },
 
   createActivity: function(req, res) {
-    console.log(req);
     var activityName = req.body.name;
-    var tagID = "";
+    var tagID = req.body.id;
     Trips.newActivity([activityName, tagID], function(error, activity) {
       if(error) {
       var err = new Error("Error creating trip:\n" + error.message);
