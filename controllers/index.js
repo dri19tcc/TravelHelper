@@ -95,14 +95,13 @@ IndexController = {
     var activityName = req.body.name;
     var tagID = req.body.id;
     Trips.newActivity([activityName, tagID], function(error, activity) {
-      if(error) {
+      if (error) {
       var err = new Error("Error creating trip:\n" + error.message);
       err.status = 500;
       } else {
-        res.redirect('/trips/' + tagId);
+        res.redirect('/trips/' + tagID);
       }
     });
-    res.redirect('/trips/' + tagID);
   }
 }
 

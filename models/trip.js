@@ -55,7 +55,29 @@ Trip.findOneTrip = function(tripID, callback) {
 };
 
 Trip.newActivity = function(params, callback) {
-  console.log(params);
+  var activityName = params[0];
+  var tagID = params[1];
+  db.activity.insert({name: activityName}, function(error, activity) {
+    if (error || !activity) {
+      console.log("error updating activity error");
+      callback(error || new Error("Could not save activity"), undefined);
+    } else {
+      db.tag.update({id: tagID, modified_date: new Date()}, function(error, tag) {
+        if (error) {
+          callback(error, undefined);
+        } else {
+          db.activity_tag.save({activity_id: activity.id, tag_id: tagID}, function(error, item) {
+            if (error) {
+              callback(error, undefined)
+            } else {
+              console.log("all tables updated in new activity");
+            }
+          })
+        }
+      })
+      callback(null, activity);
+    }
+  });
 }
 
 
