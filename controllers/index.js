@@ -92,19 +92,18 @@ IndexController = {
   },
 
   createActivity: function(req, res) {
-    console.log(req.body);
-    // var tripName = req.body;
-    // var user = req.user.id;
-    // Trips.new([tripName, user], function(error, trip) {
-    //   if(error) {
-    //   var err = new Error("Error creating trip:\n" + error.message);
-    //   err.status = 500;
-    //   next(err);
-    //   } else {
-    //     res.redirect('/trips/' + trip.id);
-    //   }
-    // });
-    res.redirect('/trips/1');
+    console.log(req);
+    var activityName = req.body.name;
+    var tagID = "";
+    Trips.newActivity([activityName, tagID], function(error, activity) {
+      if(error) {
+      var err = new Error("Error creating trip:\n" + error.message);
+      err.status = 500;
+      } else {
+        res.redirect('/trips/' + tagId);
+      }
+    });
+    res.redirect('/trips/' + tagID);
   }
 }
 
