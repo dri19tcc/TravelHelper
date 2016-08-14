@@ -1,11 +1,14 @@
 var app = require('../app');
 var db = app.get('db');
+var Activity = require('./activity')
 
 var Trip = function(trip) {
   this.tripID = trip.id,
   this.tripName = trip.name,
-  this.tripUpdate = trip.modified_date
+  this.tripUpdate = trip.modified_date,
+  this.activities = trip.activity
 };
+
 
 Trip.find_all = function(googleID, callback) { // left join instead of inner join?
   db.find_all_tags([googleID], function(error, trips) {
@@ -49,7 +52,14 @@ Trip.findOneTrip = function(tripID, callback) {
     if (error) {
       callback(error, undefined);
     } else {
-      callback(null, trip);
+      Activity.activity_by_tag(tripID, function(error, activities) {
+        if (error) {
+          callback(error, undefined);
+        } else {
+          trip.activities = activities;
+          callback(null, trip); // need a wrapper object that returns trip and activities
+        }
+      })
     };
   });
 };
