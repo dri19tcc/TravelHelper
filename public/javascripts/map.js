@@ -7,4 +7,8 @@ function initMap() {
       zoom: 15,
       style: styles
   });
+
+  // This autocomplete is for use in the search within time entry box.
+  var timeAutocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('search-within-time-text'));
 }
