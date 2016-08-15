@@ -12,8 +12,6 @@ var dotenv = require('dotenv').config(); // Use to keep keys secret (console.log
 var passport = require('passport'); // For google oauth
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
-var GoogleMapsLoader = require('google-maps'); // For Google Maps API
-
 var massive = require('massive');
 var http = require('http');
 
@@ -23,18 +21,6 @@ var connectionString = "postgres://localhost/travel_helper";
 var db = massive.connectSync({connectionString : connectionString});
 app.set("db", db);
 http.createServer(app).listen(8080);
-
-GoogleMapsLoader.load(function(google) { // google maps loader
-    new google.maps.Map(el, options);
-});
-
-GoogleMapsLoader.KEY = process.env.MAPS_API_KEY; // Key to use API
-
-GoogleMapsLoader.LIBRARIES = ['places']; // Add libraries, might use more than just places
-
-GoogleMapsLoader.onLoad(function(google) {
-    console.log('I just loaded google maps api');
-});
 
 passport.use(new GoogleStrategy({ // authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
   clientID: process.env.GOOGLE_CLIENT_ID,

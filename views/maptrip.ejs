@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> <!-- Brings in Bootstrap -->
     <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- This is to use OAuth sign in -->
+
   </head>
   <body>
-    <div id="map"></div>
     <div>
       <div>
         <nav class="navbar navbar-inverse" role="navigation">
@@ -30,6 +30,8 @@
       <h1><%= title %></h1>
       <h3>TRIPS PAGE!!!!</h3>
 
+      <div id="map"></div>
+      
       <h5>Add Activity</h5>
 
       <form action="/trips/new-activity" method="post">
@@ -53,9 +55,10 @@
       </table>
 
     </div>
-    
+
+    <script src="/javascripts/map.js"></script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.MAPS_API_KEY %>&callback=initMap">
     </script>
   </body>
 </html>

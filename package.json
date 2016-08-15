@@ -20,7 +20,6 @@
     "express": "^4.13.4",
     "express-generator": "^4.13.4",
     "express-session": "^1.14.0",
-    "google-maps": "^3.2.1",
     "massive": "^2.3.0",
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
