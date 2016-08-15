@@ -31,7 +31,7 @@
       <h3>TRIPS PAGE!!!!</h3>
 
       <div id="map"></div>
-      
+
       <h5>Add Activity</h5>
 
       <form action="/trips/new-activity" method="post">
@@ -58,7 +58,7 @@
 
     <script src="/javascripts/map.js"></script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.MAPS_API_KEY %>&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?libraries=places&key=<%= process.env.MAPS_API_KEY %>&callback=initMap">
     </script>
   </body>
 </html>
