@@ -45,23 +45,13 @@
 
 
       <br /><br /><br /><br /><br /><br /><br />
-      <form action="/trips/new-activity" method="post">
-        <label>Name of Activity: </label>
-        <input type="text" name="name" placeholder="Insert Text Here" >
-        <input type="hidden" name="id" value="<%= trip.id %>" >
-
-        <input type="submit" value="Submit">
-      </form>
-
-      <br />
-      <br />
+      <%= JSON.stringify(trip.activities) %>
+      <br /><br /><br /><br /><br /><br /><br />
 
       <table>
         <tr>
           <td><a href='<%= "/trips/" + trip.id %>'><%= trip.name %></a></td>
           <td><%= trip.modified_date %></td>
-          <td><%= trip.activities %></td>
-          <%= JSON.stringify(trip.activities) %>
         </tr>
       </table>
 
