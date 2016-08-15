@@ -8,6 +8,7 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- This is to use OAuth sign in -->
   </head>
   <body>
+    <div id="map"></div>
     <div>
       <div>
         <nav class="navbar navbar-inverse" role="navigation">
@@ -52,5 +53,9 @@
       </table>
 
     </div>
+    
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    </script>
   </body>
 </html>
