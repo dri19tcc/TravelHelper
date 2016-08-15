@@ -35,10 +35,13 @@
       <h5>Add Activity</h5>
 
 
+      <form action="/trips/new-activity" method="post">
+        <span class="text">Name of Activity</span>
+        <input id="search-within-time-text" type="text" name="name" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
+        <input type="hidden" name="id" value="<%= trip.id %>" >
+        <input id="search-within-time" type="submit" value="Submit">
+      </form>
 
-      <span class="text">Name of Activity</span>
-      <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
-      <input id="search-within-time" type="button" value="Go">
 
 
       <br /><br /><br /><br /><br /><br /><br />
