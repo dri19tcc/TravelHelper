@@ -27,6 +27,7 @@
       <h1><%= title %></h1>
       <h3>TRIPS PAGE!!!!</h3>
 
+      <td><a href='<%= "/trips/" + trip.id %>'><%= trip.name %></a></td>
       <div id="map"></div>
 
       <h5>Add Activity</h5>
@@ -41,22 +42,24 @@
 
 
       <br /><br /><br /><br /><br /><br /><br />
-      <table>
+
+      <section>
         <% var trips = trip.activities %>
         <% for(var i = 0; i < trips.length; i++) { %>
-        <tr>
-          <td><a href='#'><%= trips[i].activityName %></a></td>
-        </tr>
+          <div>
+            <p><a href='#'><%= trips[i].activityName %></a></p>
+            <p><%= trips[i].activityAddress %></p>
+            <p><%= trips[i].activityPhone %></p>
+            <p><a href='<%= trips[i].activityWebsite %>'>Website</a></p>
+            <!-- <p><img src="<%= trips[i].activityPhotoUrl %>"/></p> -->
+          </div>
+          <br /><br />
         <% } %>
-      </table>
-      <br /><br /><br /><br /><br /><br /><br />
 
-      <table>
-        <tr>
-          <td><a href='<%= "/trips/" + trip.id %>'><%= trip.name %></a></td>
-          <td><%= trip.modified_date %></td>
-        </tr>
-      </table>
+      </section>
+
+      <br /><br /><br /><br /><br /><br /><br />
+      <%= JSON.stringify(trips) %>
 
     </div>
 

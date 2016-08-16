@@ -3,6 +3,12 @@ var db = app.get('db');
 
 var Activity = function(activity) {
   this.activityName = activity.name,
+  this.activityAddress = activity.address,
+  this.activityWebsite = activity.website,
+  this.activityPhotoUrl = activity.photo_url,
+  this.activityLongitude = activity.longitude,
+  this.activityLatitude = activity.latitude,
+  this.activityPhone = activity.phone,
   this.activityID = activity.id
 };
 

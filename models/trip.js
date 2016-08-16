@@ -66,9 +66,16 @@ Trip.findOneTrip = function(tripID, callback) { // break out into another method
 
 Trip.newActivity = function(params, callback) {
   console.log("This is params: ", params);
-  // var activityName = params[0];
-  // var tagID = params[1];
-  db.activity.insert(params, function(error, activity) {
+  var name = params.name;
+  var address = params.address;
+  var website = params.website;
+  var latitude = params.latitude;
+  var longitude = params.longitude;
+  var phone = params.phone;
+  var photo_url = params.photo_url;
+
+  var tagID = params.tagID;
+  db.activity.insert({name: name, address: address, website: website, latitude: latitude, longitude: longitude, phone: phone, photo_url: photo_url}, function(error, activity) {
     if (error || !activity) {
       console.log("error updating activity error");
       callback(error || new Error("Could not save activity"), undefined);
