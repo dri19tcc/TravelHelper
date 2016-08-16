@@ -1,3 +1,5 @@
+// This is my frontend
+
 var styles = [
   {
     featureType: 'water',
@@ -65,6 +67,8 @@ var styles = [
   }
 ]
 
+var selectedActivity = {};
+
 function initMap() {
   var mapDiv = document.getElementById('map');
   var map = new google.maps.Map(mapDiv, {
@@ -85,25 +89,21 @@ function initMap() {
         window.alert("Autocomplete's returned place contains no geometry");
         return;
       }
-      var latitude = place.geometry.location.lat();
-      var longitude = place.geometry.location.lng();
-      console.log("This is lat: ", latitude);
-      console.log("This is long: ", longitude);
+      console.log(place);
+      selectedActivity = {
+        name: place.name,
+        latitude: place.geometry.location.lat(),
+        longitude: place.geometry.location.lng()
+      };
     });
-    // GetLatlong()
 
 }
 
-  // function GetLatlong() {
-  //   var geocoder = new google.maps.Geocoder();
-  //   var address = document.getElementById(('search-within-time-text').value;
-  //
-  //   geocoder.geocode({ 'address': address }, function (results, status) {
-  //
-  //       if (status == google.maps.GeocoderStatus.OK) {
-  //           var latitude = results[0].geometry.location.lat();
-  //           var longitude = results[0].geometry.location.lng();
-  //
-  //       }
-  //   });
-  // }
+$('#addActivity').on('submit', function(event) {
+  event.preventDefault();
+  selectedActivity.tagID = event.target.children.id.value
+  console.log("selected activity: ", selectedActivity);
+  $.post( "/trips/addActivity", selectedActivity, function(data) {
+    alert( "Data Loaded: " + JSON.stringify(data) ); // this is the alert that shows up
+  });
+})

@@ -1,5 +1,6 @@
 var Index = require('../models/index');
 var Trips = require('../models/trip');
+var Activity = require('../models/activity')
 
 IndexController = {
 
@@ -91,15 +92,21 @@ IndexController = {
 
   },
 
-  createActivity: function(req, res) {
+// update schema, use above function, update model to handle all things
+  addActivity: function(req, res) {
+    console.log("this is req.body: ", req.body);
+
     var activityName = req.body.name;
-    var tagID = req.body.id;
+    var tagID = req.body.tagID;
     Trips.newActivity([activityName, tagID], function(error, activity) {
       if (error) {
       var err = new Error("Error creating trip:\n" + error.message);
       err.status = 500;
       } else {
-        res.redirect('/trips/' + tagID);
+        Activity.activity_by_tag(tagID, function(error, activities) {
+          //map activities so they show up
+          res.json(activities);
+        })
       }
     });
   }

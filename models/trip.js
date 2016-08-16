@@ -47,7 +47,7 @@ Trip.new = function(params, callback) {
   });
 };
 
-Trip.findOneTrip = function(tripID, callback) {
+Trip.findOneTrip = function(tripID, callback) { // break out into another method that calls all activities
   db.tag.findOne({id: tripID}, function(error, trip) {
     if (error) {
       callback(error, undefined);

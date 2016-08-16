@@ -12,6 +12,7 @@ router.get('/trips', Controller.isLoggedIn, Controller.newTrips);
 router.get('/trips/:id', Controller.showTrip);
 
 router.post('/trips/new', Controller.createTrip);
-router.post('/trips/new-activity', Controller.createActivity);
+
+router.post('/trips/addActivity', Controller.addActivity);
 
 module.exports = router;
