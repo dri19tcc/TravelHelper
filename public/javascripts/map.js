@@ -89,11 +89,15 @@ function initMap() {
         window.alert("Autocomplete's returned place contains no geometry");
         return;
       }
-      console.log(place);
+      // console.log(place);
       selectedActivity = {
         name: place.name,
         latitude: place.geometry.location.lat(),
-        longitude: place.geometry.location.lng()
+        longitude: place.geometry.location.lng(),
+        phone: place.formatted_phone_number,
+        address: place.formatted_address,
+        photo_url: place.url,
+        website: place.website
       };
     });
 
@@ -104,6 +108,6 @@ $('#addActivity').on('submit', function(event) {
   selectedActivity.tagID = event.target.children.id.value
   console.log("selected activity: ", selectedActivity);
   $.post( "/trips/addActivity", selectedActivity, function(data) {
-    alert( "Data Loaded: " + JSON.stringify(data) ); // this is the alert that shows up
+    alert( "Data Loaded: " + JSON.stringify(data) ); // this is the alert that shows up, instead put a div in my page, put response in the div using jquery selector
   });
 })

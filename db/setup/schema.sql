@@ -23,10 +23,13 @@ CREATE TABLE user_tag(
 DROP TABLE IF EXISTS activity;
 CREATE TABLE activity(
   id serial PRIMARY KEY,
-  name text
-  -- More will go here, still deciding what
-  -- might only need google id or you need lat and long
-  -- google maps api will have more info
+  name text,
+  latitude text,
+  longitude text,
+  phone text,
+  address text,
+  website text,
+  photo_url text
 );
 
 DROP TABLE IF EXISTS activity_tag;
