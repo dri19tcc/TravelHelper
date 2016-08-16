@@ -43,7 +43,8 @@
 
       <br /><br /><br /><br /><br /><br /><br />
 
-      <section>
+      <section id="toDo">
+        
         <% var trips = trip.activities %>
         <% for(var i = 0; i < trips.length; i++) { %>
           <div>
@@ -51,7 +52,6 @@
             <p><%= trips[i].activityAddress %></p>
             <p><%= trips[i].activityPhone %></p>
             <p><a href='<%= trips[i].activityWebsite %>'>Website</a></p>
-            <!-- <p><img src="<%= trips[i].activityPhotoUrl %>"/></p> -->
           </div>
           <br /><br />
         <% } %>
@@ -59,7 +59,6 @@
       </section>
 
       <br /><br /><br /><br /><br /><br /><br />
-      <%= JSON.stringify(trips) %>
 
     </div>
 

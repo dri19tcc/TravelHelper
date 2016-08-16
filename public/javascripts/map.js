@@ -108,6 +108,13 @@ $('#addActivity').on('submit', function(event) {
   selectedActivity.tagID = event.target.children.id.value
   console.log("selected activity: ", selectedActivity);
   $.post( "/trips/addActivity", selectedActivity, function(data) {
-    alert( "Data Loaded: " + JSON.stringify(data) ); // this is the alert that shows up, instead put a div in my page, put response in the div using jquery selector
+    $("#toDo").append(
+      '<div>' +
+        '<p><a href="#">' + selectedActivity.name + '</a></p>' +
+        '<p>' + selectedActivity.address + '</p>' +
+        '<p>' + selectedActivity.phone + '</p>' +
+        '<p><a href="' + selectedActivity.website + '">Website</a></p>' +
+      '</div><br/><br/>'
+    )
   });
 })
