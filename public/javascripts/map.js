@@ -68,10 +68,12 @@ var styles = [
 ]
 
 var selectedActivity = {};
+var markers = [];
+var map;
 
 function initMap() {
   var mapDiv = document.getElementById('map');
-  var map = new google.maps.Map(mapDiv, {
+  map = new google.maps.Map(mapDiv, {
     center: {lat: 47.680, lng: -122.330},
     zoom: 15,
     styles: styles
@@ -116,5 +118,15 @@ $('#addActivity').on('submit', function(event) {
         '<p><a href="' + selectedActivity.website + '">Website</a></p>' +
       '</div><br/><br/>'
     )
+
+    var marker = new google.maps.Marker({
+      position: {lat: selectedActivity.latitude, lng: selectedActivity.longitude},
+      title: selectedActivity.name,
+      animation: google.maps.Animation.DROP,
+      // icon: ('0091ff'),
+      map: map
+      // id: i
+    });
+    console.log(marker);
   });
 })
