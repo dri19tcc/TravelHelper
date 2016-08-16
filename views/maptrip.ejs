@@ -41,9 +41,15 @@
       </form>
 
 
-
       <br /><br /><br /><br /><br /><br /><br />
-      <%= JSON.stringify(trip.activities) %>
+      <table>
+        <% var trips = trip.activities %>
+        <% for(var i = 0; i < trips.length; i++) { %>
+        <tr>
+          <td><a href='#'><%= trips[i].activityName %></a></td>
+        </tr>
+        <% } %>
+      </table>
       <br /><br /><br /><br /><br /><br /><br />
 
       <table>
