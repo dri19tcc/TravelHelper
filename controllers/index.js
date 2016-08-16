@@ -94,11 +94,11 @@ IndexController = {
 
 // update schema, use above function, update model to handle all things
   addActivity: function(req, res) {
-    console.log("this is req.body: ", req.body);
+    // console.log("this is req.body: ", req.body);
 
-    var activityName = req.body.name;
-    var tagID = req.body.tagID;
-    Trips.newActivity([activityName, tagID], function(error, activity) {
+    var activityStuff = req.body;
+    // var tagID = req.body.tagID;
+    Trips.newActivity(activityStuff, function(error, activity) {
       if (error) {
       var err = new Error("Error creating trip:\n" + error.message);
       err.status = 500;
