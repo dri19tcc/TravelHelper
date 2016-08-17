@@ -73,8 +73,10 @@ var map;
 function initMap() {
   var mapDiv = document.getElementById('map');
   map = new google.maps.Map(mapDiv, {
-    center: {lat: 37.09024, lng: -95.712891},
-    zoom: 3,
+    center: {lat: 47.680, lng: -122.330}, // seattle
+    zoom: 12,
+    // center: {lat: 37.09024, lng: -95.712891}, // usa
+    // zoom: 3,
     styles: styles
   });
 
@@ -122,7 +124,7 @@ $('#addActivity').on('submit', function(event) {
   console.log("selected activity: ", selectedActivity);
   $.post( "/trips/addActivity", selectedActivity, function(data) {
     $("#toDo").append(
-      '<div>' +
+      '<div class="' + selectedActivity.name + '">' +
       '<p><a href="#">' + selectedActivity.name + '</a></p>' +
       '<p>' + selectedActivity.address + '</p>' +
       '<p>' + selectedActivity.phone + '</p>' +
@@ -151,4 +153,21 @@ function addMarkersFromDatabase() {
       addMarkers(data[i]);
     }
   });
+}
+
+marker.addListener('click', function() {
+  populateInfoWindow(this, largeInfowindow);
+});
+
+function populateInfoWindow(marker, infowindow) {
+ // Check to make sure the infowindow is not already opened on this marker.
+ if (infowindow.marker != marker) {
+   infowindow.marker = marker;
+   infowindow.setContent('<div>' + '<p>' + marker.position + '</p><p>' + marker.title + '</p>' + '</div>')
+   infowindow.open(map, marker);
+   // Make sure the marker property is cleared if the infowindow is closed.
+   infowindow.addListener('closeclick', function() {
+     infowindow.marker = null;
+   });
+  }
 }

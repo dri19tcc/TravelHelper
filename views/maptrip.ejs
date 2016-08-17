@@ -47,7 +47,7 @@
 
         <% var activities = trip.activities %>
         <% for(var i = 0; i < activities.length; i++) { %>
-          <div>
+          <div class="<%= activities[i].name %>">
             <p><a href='#'><%= activities[i].name %></a></p>
             <p><%= activities[i].address %></p>
             <p><%= activities[i].phone %></p>
