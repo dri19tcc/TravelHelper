@@ -73,10 +73,10 @@ var map;
 function initMap() {
   var mapDiv = document.getElementById('map');
   map = new google.maps.Map(mapDiv, {
-    center: {lat: 47.680, lng: -122.330}, // seattle
-    zoom: 12,
-    // center: {lat: 37.09024, lng: -95.712891}, // usa
-    // zoom: 3,
+    // center: {lat: 47.680, lng: -122.330}, // seattle
+    // zoom: 12,
+    center: {lat: 37.09024, lng: -95.712891}, // usa
+    zoom: 3,
     styles: styles
   });
 
@@ -105,16 +105,6 @@ function initMap() {
 
     addMarkersFromDatabase();
 
-    var bounds = new google.maps.LatLngBounds(); // makes map start showing bounds
-
-    // if (!selectedActivity) { //more to do with bounds
-    //   var newBounds = new google.maps.LatLng({lat: selectedActivity.latitude, lng: selectedActivity.longitude})
-    //   // var newBounds = new google.maps.LatLng({lat: 47.608013, lng: -122.335167});
-    //   bounds.extend(newBounds);
-    //   map.fitBounds(bounds);
-    // }
-
-
 }
 
 $('#addActivity').on('submit', function(event) {
@@ -132,6 +122,7 @@ $('#addActivity').on('submit', function(event) {
       '</div><br/><br/>'
     )
     addMarkers(selectedActivity);
+    makeBoundsForMap(selectedActivity.latitude, selectedActivity.longitude)
   });
 })
 
@@ -171,4 +162,11 @@ function populateInfoWindow(marker, infowindow) {
      infowindow.marker = null;
    });
   }
+}
+
+function makeBoundsForMap(lat, long) {
+  var bounds = new google.maps.LatLngBounds(); // makes map start showing bounds
+  var newBounds = new google.maps.LatLng({lat: lat, lng: long})
+  bounds.extend(newBounds);
+  map.fitBounds(bounds);
 }
