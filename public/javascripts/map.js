@@ -105,7 +105,6 @@ function initMap() {
 
     addMarkersFromDatabase();
 
-    var largeInfowindow = new google.maps.InfoWindow(); // adding in an info window
     var bounds = new google.maps.LatLngBounds(); // makes map start showing bounds
 
     // if (!selectedActivity) { //more to do with bounds
@@ -144,6 +143,11 @@ function addMarkers(location) {
     // icon: ('0091ff'),
     map: map
   });
+  var largeInfowindow = new google.maps.InfoWindow(); // adding in an info window
+
+  marker.addListener('click', function() {
+    populateInfoWindow(this, largeInfowindow);
+  });
 }
 
 function addMarkersFromDatabase() {
@@ -155,15 +159,12 @@ function addMarkersFromDatabase() {
   });
 }
 
-marker.addListener('click', function() {
-  populateInfoWindow(this, largeInfowindow);
-});
 
 function populateInfoWindow(marker, infowindow) {
  // Check to make sure the infowindow is not already opened on this marker.
  if (infowindow.marker != marker) {
    infowindow.marker = marker;
-   infowindow.setContent('<div>' + '<p>' + marker.position + '</p><p>' + marker.title + '</p>' + '</div>')
+   infowindow.setContent('<div>' + '<p>' + marker.name + '</p></div>')
    infowindow.open(map, marker);
    // Make sure the marker property is cleared if the infowindow is closed.
    infowindow.addListener('closeclick', function() {
