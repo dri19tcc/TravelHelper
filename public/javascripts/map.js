@@ -68,14 +68,13 @@ var styles = [
 ]
 
 var selectedActivity = {};
-var markers = [];
 var map;
 
 function initMap() {
   var mapDiv = document.getElementById('map');
   map = new google.maps.Map(mapDiv, {
-    center: {lat: 47.680, lng: -122.330},
-    zoom: 15,
+    center: {lat: 37.09024, lng: -95.712891},
+    zoom: 3,
     styles: styles
   });
 
@@ -101,7 +100,13 @@ function initMap() {
         website: place.website
       };
     });
+
     addMarkersFromDatabase();
+
+    var bounds = new google.maps.LatLngBounds(); // makes map start showing bounds
+    var newBounds = new google.maps.LatLng({lat: 47.608013, lng: -122.335167});
+    bounds.extend(newBounds);
+    map.fitBounds(bounds);
 }
 
 $('#addActivity').on('submit', function(event) {
