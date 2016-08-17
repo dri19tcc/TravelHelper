@@ -102,8 +102,6 @@ function initMap() {
       };
     });
     addMarkersFromDatabase();
-    // make outside function in here call function that will gather markers, use ajax
-    // new route that calls activity model that returns json
 }
 
 $('#addActivity').on('submit', function(event) {
@@ -117,6 +115,7 @@ $('#addActivity').on('submit', function(event) {
         '<p>' + selectedActivity.address + '</p>' +
         '<p>' + selectedActivity.phone + '</p>' +
         '<p><a href="' + selectedActivity.website + '">Website</a></p>' +
+        '<p><button type="button" class="btn btn-secondary">Delete</button></p>' +
       '</div><br/><br/>'
     )
     addMarkers(selectedActivity);
@@ -131,13 +130,11 @@ function addMarkers(location) {
     // icon: ('0091ff'),
     map: map
   });
-  // console.log(marker);
 }
 
 function addMarkersFromDatabase() {
   var tagID = $("#addActivity").children('input[name=id]').val();
   $.get('/trips/findActivities?tagID=' + tagID , function(data) {
-    console.log(data);
     for (var i = 0; i < data.length; i++) {
       addMarkers(data[i]);
     }

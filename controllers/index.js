@@ -82,7 +82,6 @@ IndexController = {
         var err = new Error("Could not find trip:\n" + error.message);
         err.status = 500;
       } else {
-        // console.log("in controller trips: ", trip);
         res.render('maptrip', {
           title: "Travel Helper",
           trip: trip,
@@ -116,15 +115,9 @@ IndexController = {
     var activities = {};
     var tagID = req.query.tagID;
     Activity.activity_by_tag(tagID, function(error, activities) {
-      console.log("activities in controller: ", activities);
       res.json(activities);
     });
   }
 }
-
-
-
-
-
 
 module.exports = IndexController;
