@@ -103,10 +103,17 @@ function initMap() {
 
     addMarkersFromDatabase();
 
+    var largeInfowindow = new google.maps.InfoWindow(); // adding in an info window
     var bounds = new google.maps.LatLngBounds(); // makes map start showing bounds
-    var newBounds = new google.maps.LatLng({lat: 47.608013, lng: -122.335167});
-    bounds.extend(newBounds);
-    map.fitBounds(bounds);
+
+    // if (!selectedActivity) { //more to do with bounds
+    //   var newBounds = new google.maps.LatLng({lat: selectedActivity.latitude, lng: selectedActivity.longitude})
+    //   // var newBounds = new google.maps.LatLng({lat: 47.608013, lng: -122.335167});
+    //   bounds.extend(newBounds);
+    //   map.fitBounds(bounds);
+    // }
+
+
 }
 
 $('#addActivity').on('submit', function(event) {
@@ -116,11 +123,11 @@ $('#addActivity').on('submit', function(event) {
   $.post( "/trips/addActivity", selectedActivity, function(data) {
     $("#toDo").append(
       '<div>' +
-        '<p><a href="#">' + selectedActivity.name + '</a></p>' +
-        '<p>' + selectedActivity.address + '</p>' +
-        '<p>' + selectedActivity.phone + '</p>' +
-        '<p><a href="' + selectedActivity.website + '">Website</a></p>' +
-        '<p><button type="button" class="btn btn-secondary">Delete</button></p>' +
+      '<p><a href="#">' + selectedActivity.name + '</a></p>' +
+      '<p>' + selectedActivity.address + '</p>' +
+      '<p>' + selectedActivity.phone + '</p>' +
+      '<p><a href="' + selectedActivity.website + '">Website</a></p>' +
+      '<p><button type="button" class="btn btn-secondary">Delete</button></p>' +
       '</div><br/><br/>'
     )
     addMarkers(selectedActivity);
