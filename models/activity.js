@@ -2,14 +2,14 @@ var app = require('../app');
 var db = app.get('db');
 
 var Activity = function(activity) {
-  this.activityName = activity.name,
-  this.activityAddress = activity.address,
-  this.activityWebsite = activity.website,
-  this.activityPhotoUrl = activity.photo_url,
-  this.activityLongitude = activity.longitude,
-  this.activityLatitude = activity.latitude,
-  this.activityPhone = activity.phone,
-  this.activityID = activity.id
+  this.name = activity.name,
+  this.address = activity.address,
+  this.website = activity.website,
+  this.photoUrl = activity.photo_url,
+  this.longitude = activity.longitude,
+  this.latitude = activity.latitude,
+  this.phone = activity.phone,
+  this.id = activity.id
 };
 
 Activity.activity_by_tag = function(tagID, callback) {

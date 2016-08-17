@@ -82,6 +82,7 @@ IndexController = {
         var err = new Error("Could not find trip:\n" + error.message);
         err.status = 500;
       } else {
+        // console.log("in controller trips: ", trip);
         res.render('maptrip', {
           title: "Travel Helper",
           trip: trip,
@@ -102,11 +103,21 @@ IndexController = {
       err.status = 500;
       } else {
         Activity.activity_by_tag(tagID, function(error, activities) {
+          // do some error handling here!
           //map activities so they show up
-          console.log(activities);
+          // console.log(activities);
           res.json(activities);
         })
       }
+    });
+  },
+
+  findAllActivitiesByTag: function(req, res) {
+    var activities = {};
+    var tagID = req.query.tagID;
+    Activity.activity_by_tag(tagID, function(error, activities) {
+      console.log("activities in controller: ", activities);
+      res.json(activities);
     });
   }
 }
@@ -116,4 +127,4 @@ IndexController = {
 
 
 
-  module.exports = IndexController;
+module.exports = IndexController;

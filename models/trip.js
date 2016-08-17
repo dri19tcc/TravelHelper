@@ -3,7 +3,7 @@ var db = app.get('db');
 var Activity = require('./activity')
 
 var Trip = function(trip) {
-  this.tripID = trip.id,
+  this.tripID = trip.tag_id,
   this.tripName = trip.name,
   this.tripUpdate = trip.modified_date,
   this.activities = trip.activity
@@ -65,7 +65,7 @@ Trip.findOneTrip = function(tripID, callback) { // break out into another method
 };
 
 Trip.newActivity = function(params, callback) {
-  console.log("This is params: ", params);
+  // console.log("This is params: ", params);
   var name = params.name;
   var address = params.address;
   var website = params.website;

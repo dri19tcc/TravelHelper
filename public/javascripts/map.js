@@ -91,7 +91,6 @@ function initMap() {
         window.alert("Autocomplete's returned place contains no geometry");
         return;
       }
-      // console.log(place);
       selectedActivity = {
         name: place.name,
         latitude: place.geometry.location.lat(),
@@ -102,7 +101,9 @@ function initMap() {
         website: place.website
       };
     });
-
+    addMarkersFromDatabase();
+    // make outside function in here call function that will gather markers, use ajax
+    // new route that calls activity model that returns json
 }
 
 $('#addActivity').on('submit', function(event) {
@@ -118,15 +119,27 @@ $('#addActivity').on('submit', function(event) {
         '<p><a href="' + selectedActivity.website + '">Website</a></p>' +
       '</div><br/><br/>'
     )
-
-    var marker = new google.maps.Marker({
-      position: {lat: selectedActivity.latitude, lng: selectedActivity.longitude},
-      title: selectedActivity.name,
-      animation: google.maps.Animation.DROP,
-      // icon: ('0091ff'),
-      map: map
-      // id: i
-    });
-    console.log(marker);
+    addMarkers(selectedActivity);
   });
 })
+
+function addMarkers(location) {
+  var marker = new google.maps.Marker({
+    position: {lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)},
+    title: location.name,
+    animation: google.maps.Animation.DROP,
+    // icon: ('0091ff'),
+    map: map
+  });
+  // console.log(marker);
+}
+
+function addMarkersFromDatabase() {
+  var tagID = $("#addActivity").children('input[name=id]').val();
+  $.get('/trips/findActivities?tagID=' + tagID , function(data) {
+    console.log(data);
+    for (var i = 0; i < data.length; i++) {
+      addMarkers(data[i]);
+    }
+  });
+}

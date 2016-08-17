@@ -44,14 +44,14 @@
       <br /><br /><br /><br /><br /><br /><br />
 
       <section id="toDo">
-        
-        <% var trips = trip.activities %>
-        <% for(var i = 0; i < trips.length; i++) { %>
+
+        <% var activities = trip.activities %>
+        <% for(var i = 0; i < activities.length; i++) { %>
           <div>
-            <p><a href='#'><%= trips[i].activityName %></a></p>
-            <p><%= trips[i].activityAddress %></p>
-            <p><%= trips[i].activityPhone %></p>
-            <p><a href='<%= trips[i].activityWebsite %>'>Website</a></p>
+            <p><a href='#'><%= activities[i].name %></a></p>
+            <p><%= activities[i].address %></p>
+            <p><%= activities[i].phone %></p>
+            <p><a href='<%= activities[i].website %>'>Website</a></p>
           </div>
           <br /><br />
         <% } %>
