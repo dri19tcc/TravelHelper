@@ -74,8 +74,6 @@ var latLngBounds = []
 function initMap() {
   var mapDiv = document.getElementById('map');
   map = new google.maps.Map(mapDiv, {
-    // center: {lat: 47.680, lng: -122.330}, // seattle
-    // zoom: 12,
     center: {lat: 37.09024, lng: -95.712891}, // usa
     zoom: 3,
     scrollwheel: false,
