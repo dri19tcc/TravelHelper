@@ -47,15 +47,16 @@
 
         <% var activities = trip.activities %>
         <% for(var i = 0; i < activities.length; i++) { %>
-          <div class="<%= activities[i].name %>">
+          <div class="<%= activities[i].id %>">
             <p><a href='#'><%= activities[i].name %></a></p>
             <p><%= activities[i].address %></p>
             <p><%= activities[i].phone %></p>
             <p><a href='<%= activities[i].website %>'>Website</a></p>
             <p>
               <form id="deleteActivity">
+                <input type="hidden" name="tagID" value="<%= trip.id %>">
                 <input type="hidden" name="id" value="<%= activities[i].id %>">
-                <input class="btn btn-secondary" type="button" value="Delete"/>
+                <input class="btn btn-secondary" type="submit" value="Delete"/>
               </form>
             </p>
           </div>

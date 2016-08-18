@@ -93,6 +93,7 @@ function initMap() {
         return;
       }
       selectedActivity = {
+        id: place.id,
         name: place.name,
         latitude: place.geometry.location.lat(),
         longitude: place.geometry.location.lng(),
@@ -109,8 +110,8 @@ $('#addActivity').on('submit', function(event) {
   event.preventDefault();
   selectedActivity.tagID = event.target.children.id.value
   $.post( "/trips/addActivity", selectedActivity, function(data) {
-    $("#toDo").append(
-      '<div class="' + selectedActivity.name + '">' +
+    $("#toDo").append( // first line works with .name, switching to .id
+      '<div class="' + selectedActivity.id + '">' +
       '<p><a href="#">' + selectedActivity.name + '</a></p>' +
       '<p>' + selectedActivity.address + '</p>' +
       '<p>' + selectedActivity.phone + '</p>' +
@@ -173,3 +174,16 @@ function makeBoundsForMap(lat, long) {
   }
   map.fitBounds(bounds);
 }
+
+$('#deleteActivity').on('submit', function(event) {
+  event.preventDefault();
+  tagID = event.target.children.tagID.value;
+  activityToDeleteID = event.target.children.id.value;
+  activityDeleteHashID = {id: activityToDeleteID}
+  console.log(activityToDeleteID);
+  $.post( "/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
+    $("." + activityToDeleteID).remove();
+    //   addMarkers(selectedActivity);
+    // makeBoundsForMap(selectedActivity.latitude, selectedActivity.longitude);
+  });
+})

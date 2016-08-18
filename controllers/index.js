@@ -64,9 +64,9 @@ IndexController = {
     var user = req.user.id;
     Trips.new([tripName, user], function(error, trip) {
       if(error) {
-      var err = new Error("Error creating trip:\n" + error.message);
-      err.status = 500;
-      next(err);
+        var err = new Error("Error creating trip:\n" + error.message);
+        err.status = 500;
+        next(err);
       } else {
         res.redirect('/trips/' + trip.id);
       }
@@ -92,14 +92,14 @@ IndexController = {
 
   },
 
-// update schema, use above function, update model to handle all things
+  // update schema, use above function, update model to handle all things
   addActivity: function(req, res) {
     var activityStuff = req.body;
     var tagID = req.body.tagID;
     Trips.newActivity(activityStuff, function(error, activity) {
       if (error) {
-      var err = new Error("Error creating trip:\n" + error.message);
-      err.status = 500;
+        var err = new Error("Error creating trip:\n" + error.message);
+        err.status = 500;
       } else {
         Activity.activity_by_tag(tagID, function(error, activities) {
           // do some error handling here!
@@ -127,17 +127,17 @@ IndexController = {
 
 
   deleteActivity: function(req, res, next) {
-    console.log(req.params.id)
-    // Activity.delete([Number(req.params.id)], function(error, item) {
-    //   if(error) {
-    //   var err = new Error("Error deleting movie:\n" + error.message);
-    //   err.status = 500;
-    //   next(err);
-    //   } else {
-    //     // console.log(item)
-    //     res.redirect('http://localhost:3000/trips/' + id);
-    //   }
-    // })
+    var activityID = req.body.id;
+    Trips.deleteActivityFromDatabase(activityID, function(error, item) {
+      if(error) {
+        var err = new Error("Error deleting movie:\n" + error.message);
+        err.status = 500;
+        next(err);
+      } else {
+        console.log(item)
+        res.json(item);
+      }
+    })
   }
 
 

@@ -98,5 +98,24 @@ Trip.newActivity = function(params, callback) {
   });
 }
 
+Trip.deleteActivityFromDatabase = function(activityID, callback) {
+  db.activity.destroy({id: activityID}, function(error, result) {
+    if (error || !result) {
+      console.log("Error deleting activity");
+      callback(error || new Error("Could not delete activity"), undefined);
+    } else {
+      db.activity_tag.destroy({activity_id: activityID}, function(err, res) {
+        if (err || !res) {
+          console.log("error deleting activity_tag");
+          callback(error || new Error("Could not delete activity_tag"), undefined);
+        } else {
+          console.log("all tables updated while deleting activity");
+        }
+      })
+      callback(null, result);
+    }
+  });
+}
+
 
 module.exports = Trip;
