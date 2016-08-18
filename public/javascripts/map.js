@@ -103,15 +103,12 @@ function initMap() {
         website: place.website
       };
     });
-
     addMarkersFromDatabase();
-
 }
 
 $('#addActivity').on('submit', function(event) {
   event.preventDefault();
   selectedActivity.tagID = event.target.children.id.value
-  // console.log("selected activity: ", selectedActivity);
   $.post( "/trips/addActivity", selectedActivity, function(data) {
     $("#toDo").append(
       '<div class="' + selectedActivity.name + '">' +
@@ -138,6 +135,7 @@ function addMarkers(location) {
   var largeInfowindow = new google.maps.InfoWindow(); // adding in an info window
 
   marker.addListener('click', function() {
+    // console.log(this.title);
     populateInfoWindow(this, largeInfowindow);
   });
 }
@@ -158,7 +156,7 @@ function populateInfoWindow(marker, infowindow) {
  // Check to make sure the infowindow is not already opened on this marker.
  if (infowindow.marker != marker) {
    infowindow.marker = marker;
-   infowindow.setContent('<div>' + '<p>' + marker.name + '</p></div>')
+   infowindow.setContent('<div>' + '<p>' + marker.title + '</p></div>')
    infowindow.open(map, marker);
    // Make sure the marker property is cleared if the infowindow is closed.
    infowindow.addListener('closeclick', function() {
