@@ -78,6 +78,7 @@ function initMap() {
     // zoom: 12,
     center: {lat: 37.09024, lng: -95.712891}, // usa
     zoom: 3,
+    scrollwheel: false,
     styles: styles
   });
 
@@ -135,8 +136,7 @@ function addMarkers(location) {
   var largeInfowindow = new google.maps.InfoWindow(); // adding in an info window
 
   marker.addListener('click', function() {
-    console.log(this);
-    populateInfoWindow(this, largeInfowindow);
+    populateInfoWindow(this, location, largeInfowindow);
   });
 }
 
@@ -152,11 +152,12 @@ function addMarkersFromDatabase() {
 }
 
 
-function populateInfoWindow(marker, infowindow) {
+function populateInfoWindow(marker, info, infowindow) {
  // Check to make sure the infowindow is not already opened on this marker.
  if (infowindow.marker != marker) {
    infowindow.marker = marker;
-   infowindow.setContent('<div><p>' + marker.title + '</p></div>')
+   console.log(info);
+   infowindow.setContent('<div><p>' + info.name + '</p><p>Phone: ' + info.phone + '</p><p>Website: ' + info.website + '</p></div>')
    infowindow.open(map, marker);
    // Make sure the marker property is cleared if the infowindow is closed.
    infowindow.addListener('closeclick', function() {
