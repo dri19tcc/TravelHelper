@@ -18,4 +18,6 @@ router.post('/trips/new', Controller.createTrip);
 
 router.post('/trips/addActivity', Controller.addActivity);
 
+router.post('/trips/:id/delete', Controller.deleteActivity);
+
 module.exports = router;

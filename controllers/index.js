@@ -117,7 +117,38 @@ IndexController = {
     Activity.activity_by_tag(tagID, function(error, activities) {
       res.json(activities);
     });
+  },
+
+
+
+
+
+
+
+
+  deleteActivity: function(req, res, next) {
+    console.log(req.params.id)
+    // Activity.delete([Number(req.params.id)], function(error, item) {
+    //   if(error) {
+    //   var err = new Error("Error deleting movie:\n" + error.message);
+    //   err.status = 500;
+    //   next(err);
+    //   } else {
+    //     // console.log(item)
+    //     res.redirect('http://localhost:3000/trips/' + id);
+    //   }
+    // })
   }
+
+
+
+
+
+
+
+
+
+
 }
 
 module.exports = IndexController;

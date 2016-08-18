@@ -52,7 +52,12 @@
             <p><%= activities[i].address %></p>
             <p><%= activities[i].phone %></p>
             <p><a href='<%= activities[i].website %>'>Website</a></p>
-            <p><button type="button" class="btn btn-secondary">Delete</button></p>
+            <p>
+              <form id="deleteActivity">
+                <input type="hidden" name="id" value="<%= activities[i].id %>">
+                <input class="btn btn-secondary" type="button" value="Delete"/>
+              </form>
+            </p>
           </div>
           <br /><br />
         <% } %>
