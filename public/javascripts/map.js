@@ -69,6 +69,7 @@ var styles = [
 
 var selectedActivity = {};
 var map;
+var latLngBounds = []
 
 function initMap() {
   var mapDiv = document.getElementById('map');
@@ -110,7 +111,7 @@ function initMap() {
 $('#addActivity').on('submit', function(event) {
   event.preventDefault();
   selectedActivity.tagID = event.target.children.id.value
-  console.log("selected activity: ", selectedActivity);
+  // console.log("selected activity: ", selectedActivity);
   $.post( "/trips/addActivity", selectedActivity, function(data) {
     $("#toDo").append(
       '<div class="' + selectedActivity.name + '">' +
@@ -122,7 +123,7 @@ $('#addActivity').on('submit', function(event) {
       '</div><br/><br/>'
     )
     addMarkers(selectedActivity);
-    makeBoundsForMap(selectedActivity.latitude, selectedActivity.longitude)
+    makeBoundsForMap(selectedActivity.latitude, selectedActivity.longitude);
   });
 })
 
@@ -146,8 +147,10 @@ function addMarkersFromDatabase() {
   $.get('/trips/findActivities?tagID=' + tagID , function(data) {
     for (var i = 0; i < data.length; i++) {
       addMarkers(data[i]);
+      makeBoundsForMap(parseFloat(data[i].latitude), parseFloat(data[i].longitude));
     }
   });
+
 }
 
 
@@ -166,7 +169,10 @@ function populateInfoWindow(marker, infowindow) {
 
 function makeBoundsForMap(lat, long) {
   var bounds = new google.maps.LatLngBounds(); // makes map start showing bounds
-  var newBounds = new google.maps.LatLng({lat: lat, lng: long})
-  bounds.extend(newBounds);
+  var newBounds = new google.maps.LatLng({lat: lat, lng: long});
+  latLngBounds.push(newBounds);
+  for (var i = 0; i < latLngBounds.length; i++) {
+    bounds.extend(latLngBounds[i]);
+  }
   map.fitBounds(bounds);
 }
