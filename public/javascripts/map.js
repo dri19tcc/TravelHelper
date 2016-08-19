@@ -182,7 +182,6 @@ $('.deleteActivity').on('submit', function(event) {
   activityDeleteHashID = {id: activityToDeleteID}
   $.post( "/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
     $("." + activityToDeleteID).remove();
-    //   addMarkers(selectedActivity);
-    // makeBoundsForMap(selectedActivity.latitude, selectedActivity.longitude);
+      initMap();
   });
 })
