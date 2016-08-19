@@ -76,7 +76,7 @@ IndexController = {
   showTrip: function(req, res) { //database call, look up current trip, and the map and all the points
     var tripID = req.params.id;
     var loggedIn = req.session.passport ? true : false;
-
+    
     Trips.findOneTrip(tripID, function(error, trip) {
       if(error) {
         var err = new Error("Could not find trip:\n" + error.message);
