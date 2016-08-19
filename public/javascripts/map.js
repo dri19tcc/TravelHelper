@@ -80,48 +80,73 @@ function initMap() {
     styles: styles
   });
 
-  // This autocomplete is for use in the search within time entry box.
-  var timeAutocomplete = new google.maps.places.Autocomplete(
-    document.getElementById('search-within-time-text'));
+  var timeAutocomplete = new google.maps.places.Autocomplete( // This autocomplete is for use in the search within time entry box.
+    document.getElementById('search-within-time-text')
+  );
 
-    timeAutocomplete.addListener('place_changed', function() {
-      // infowindow.close();
-      // marker.setVisible(false);
-      var place = timeAutocomplete.getPlace();
-      if (!place.geometry) {
-        window.alert("Autocomplete's returned place contains no geometry");
-        return;
-      }
-      selectedActivity = {
-        id: place.id,
-        name: place.name,
-        latitude: place.geometry.location.lat(),
-        longitude: place.geometry.location.lng(),
-        phone: place.formatted_phone_number,
-        address: place.formatted_address,
-        photo_url: place.url,
-        website: place.website
-      };
-    });
-    addMarkersFromDatabase();
+  timeAutocomplete.addListener('place_changed', function() {
+    // infowindow.close();
+    // marker.setVisible(false);
+    var place = timeAutocomplete.getPlace();
+    if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+    }
+    // console.log(place);
+    selectedActivity = {
+      id: place.id,
+      name: place.name,
+      latitude: place.geometry.location.lat(),
+      longitude: place.geometry.location.lng(),
+      phone: place.formatted_phone_number,
+      address: place.formatted_address,
+      photo_url: place.url,
+      website: place.website
+    };
+  });
+  addMarkersFromDatabase();
 }
+
+//removeItem
+$('.deleteActivity').on('submit', function(event) {
+  event.preventDefault();
+  tagID = event.target.children.tagID.value;
+  activityToDeleteID = event.target.children.id.value;
+  activityDeleteHashID = {id: activityToDeleteID}
+  $.post( "/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
+    //// rerender all activies
+    // $.get all activities
+    $("." + activityToDeleteID).remove();
+    updateMyPage(tagID);
+  });
+})
 
 $('#addActivity').on('submit', function(event) {
   event.preventDefault();
   selectedActivity.tagID = event.target.children.id.value
   $.post( "/trips/addActivity", selectedActivity, function(data) {
-    $("#toDo").append( // first line works with .name, switching to .id
-      '<div class="' + selectedActivity.id + '">' +
-      '<p><a href="#">' + selectedActivity.name + '</a></p>' +
-      '<p>' + selectedActivity.address + '</p>' +
-      '<p>' + selectedActivity.phone + '</p>' +
-      '<p><a href="' + selectedActivity.website + '">Website</a></p>' +
-      '<p><button type="button" class="btn btn-secondary">Delete</button></p>' +
-      '</div><br/><br/>'
-    )
-    addMarkers(selectedActivity);
-    makeBoundsForMap(selectedActivity.latitude, selectedActivity.longitude);
+    // console.log("this is data: ", data);
+    // console.log("This is selectedActivity: ", selectedActivity);
+
+    // $("#toDo").append( // first line works with .name, switching to .id
+    //   '<div class="' + selectedActivity.id + '">' +
+    //   '<p><a href="#">' + selectedActivity.name + '</a></p>' +
+    //   '<p>' + selectedActivity.address + '</p>' +
+    //   '<p>' + selectedActivity.phone + '</p>' +
+    //   '<p><a href="' + selectedActivity.website + '">Website</a></p>' +
+    //   '<form class="deleteActivity">' +
+    //   '<input type="hidden" name="tagID" value="' + selectedActivity.tagID + '">' +
+    //   '<input type="hidden" name="id" value="' + data.id + '">' +
+    //   '<p><input class="btn btn-secondary" type="submit" value="Delete"/></p>' +
+    //   '</form>' +
+    //   '</div><br/><br/>'
+    // )
+    // addMarkers(selectedActivity);
+
+    // initMap()
+    // makeBoundsForMap(selectedActivity.latitude, selectedActivity.longitude);
   });
+  updateMyPage(selectedActivity.tagID);
 })
 
 function addMarkers(location) {
@@ -132,6 +157,7 @@ function addMarkers(location) {
     // icon: ('0091ff'),
     map: map
   });
+
   var largeInfowindow = new google.maps.InfoWindow(); // adding in an info window
 
   marker.addListener('click', function() {
@@ -142,7 +168,7 @@ function addMarkers(location) {
 function addMarkersFromDatabase() {
   var tagID = $("#addActivity").children('input[name=id]').val();
   $.get('/trips/findActivities?tagID=' + tagID , function(data) {
-    for (var i = 0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) { // Adds all stored markers and does bounds for each
       addMarkers(data[i]);
       makeBoundsForMap(parseFloat(data[i].latitude), parseFloat(data[i].longitude));
     }
@@ -152,16 +178,14 @@ function addMarkersFromDatabase() {
 
 
 function populateInfoWindow(marker, info, infowindow) {
- // Check to make sure the infowindow is not already opened on this marker.
- if (infowindow.marker != marker) {
-   infowindow.marker = marker;
-   console.log(info);
-   infowindow.setContent('<div><p>' + info.name + '</p><p>Phone: ' + info.phone + '</p><p>Website: ' + info.website + '</p></div>')
-   infowindow.open(map, marker);
-   // Make sure the marker property is cleared if the infowindow is closed.
-   infowindow.addListener('closeclick', function() {
-     infowindow.marker = null;
-   });
+  if (infowindow.marker != marker) { // Check to make sure the infowindow is not already opened on this marker.
+    infowindow.marker = marker;
+    // console.log(info);
+    infowindow.setContent('<div><p>' + info.name + '</p><p>Phone: ' + info.phone + '</p><p>Website: ' + info.website + '</p></div>')
+    infowindow.open(map, marker); // Make sure the marker property is cleared if the infowindow is closed.
+    infowindow.addListener('closeclick', function() {
+      infowindow.marker = null;
+    });
   }
 }
 
@@ -175,13 +199,27 @@ function makeBoundsForMap(lat, long) {
   map.fitBounds(bounds);
 }
 
-$('.deleteActivity').on('submit', function(event) {
-  event.preventDefault();
-  tagID = event.target.children.tagID.value;
-  activityToDeleteID = event.target.children.id.value;
-  activityDeleteHashID = {id: activityToDeleteID}
-  $.post( "/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
-    $("." + activityToDeleteID).remove();
-      initMap();
-  });
-})
+function updateMyPage(tagID) {
+  $.get('/trips/' + tagID, function() {
+    
+  })
+  latLngBounds = [];
+  initMap();
+}
+
+// function updateMyPage(activites)
+// initMap(activies)
+// for each activity, add a marker
+// initList(actiovies)
+// destroy current list
+// for each activty, add a activity to list
+
+// function addItem
+// $.post(stuff, function(data)
+// $.get(allActivitesByTag, fucntion(activities))
+// updateMyPage(activities)
+
+// function removeItem
+// $.delete(myTag, fucntion(data))
+// $.get(allActivitesByTag, fucntion(activities))
+// updateMyPage(activites)

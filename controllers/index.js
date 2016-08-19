@@ -73,7 +73,7 @@ IndexController = {
     });
   },
 
-  showTrip: function(req, res) { //database call, look up current trip, and the map and all the points.  This is a complex function
+  showTrip: function(req, res) { //database call, look up current trip, and the map and all the points
     var tripID = req.params.id;
     var loggedIn = req.session.passport ? true : false;
 
@@ -82,11 +82,16 @@ IndexController = {
         var err = new Error("Could not find trip:\n" + error.message);
         err.status = 500;
       } else {
-        res.render('maptrip', {
-          title: "Travel Helper",
-          trip: trip,
-          loggedIn: loggedIn
-        })
+        Activity.activity_by_tag(tripID, function(error, activities) {
+          console.log("ShowTrip activities: ", activities);
+
+          res.render('maptrip', {
+            title: "Travel Helper",
+            trip: trip,
+            loggedIn: loggedIn,
+            activities: activities
+          })
+        });
       };
     });
 
@@ -101,12 +106,13 @@ IndexController = {
         var err = new Error("Error creating trip:\n" + error.message);
         err.status = 500;
       } else {
+        // console.log(activity);
         Activity.activity_by_tag(tagID, function(error, activities) {
+          // console.log("activities: ", activities);
           // do some error handling here!
           //map activities so they show up
-          // console.log(activities);
           res.json(activities);
-        })
+        });
       }
     });
   },
