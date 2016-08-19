@@ -119,36 +119,25 @@ IndexController = {
     });
   },
 
-
-
-
-
-
-
-
   deleteActivity: function(req, res, next) {
     var activityID = req.body.id;
+    var tagID = req.params.id;
     Trips.deleteActivityFromDatabase(activityID, function(error, item) {
       if(error) {
         var err = new Error("Error deleting movie:\n" + error.message);
         err.status = 500;
         next(err);
       } else {
-        console.log(item)
-        res.json(item);
+        console.log("You are now going to look up all activities");
+        Activity.activity_by_tag(tagID, function(error, activities) {
+          // do some error handling here!
+          //map activities so they show up
+          // console.log(activities);
+          res.json(activities);
+        })
       }
     })
   }
-
-
-
-
-
-
-
-
-
-
 }
 
 module.exports = IndexController;

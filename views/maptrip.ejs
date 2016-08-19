@@ -53,7 +53,7 @@
             <p><%= activities[i].phone %></p>
             <p><a href='<%= activities[i].website %>'>Website</a></p>
             <p>
-              <form id="deleteActivity">
+              <form class="deleteActivity">
                 <input type="hidden" name="tagID" value="<%= trip.id %>">
                 <input type="hidden" name="id" value="<%= activities[i].id %>">
                 <input class="btn btn-secondary" type="submit" value="Delete"/>

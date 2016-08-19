@@ -175,12 +175,11 @@ function makeBoundsForMap(lat, long) {
   map.fitBounds(bounds);
 }
 
-$('#deleteActivity').on('submit', function(event) {
+$('.deleteActivity').on('submit', function(event) {
   event.preventDefault();
   tagID = event.target.children.tagID.value;
   activityToDeleteID = event.target.children.id.value;
   activityDeleteHashID = {id: activityToDeleteID}
-  console.log(activityToDeleteID);
   $.post( "/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
     $("." + activityToDeleteID).remove();
     //   addMarkers(selectedActivity);
