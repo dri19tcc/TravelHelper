@@ -54,6 +54,7 @@ Trip.findOneTrip = function(tripID, callback) { // break out into another method
     } else {
       Activity.activity_by_tag(tripID, function(error, activities) {
         if (error) {
+          console.log("Inside model findOneTrip activity_by_tag", error);
           callback(error, undefined);
         } else {
           trip.activities = activities;
@@ -77,6 +78,7 @@ Trip.newActivity = function(params, callback) {
   };
 
   var tagID = params.tagID;
+  // find or create by instead of insert
   db.activity.insert(activityHash, function(error, activity) {
     if (error || !activity) {
       console.log("error updating activity error");
@@ -100,8 +102,8 @@ Trip.newActivity = function(params, callback) {
   });
 }
 
-Trip.deleteActivityFromDatabase = function(activityID, callback) {
-  db.activity_tag.destroy({activity_id: activityID}, function(err, res) {
+Trip.deleteActivityFromDatabase = function(activity_google_id, tagID, callback) {
+  db.activity_tag.destroy({google_id: activity_google_id, tag_id: tagID}, function(err, res) {
     if (err || !res) {
       console.log("error deleting activity_tag");
       callback(error || new Error("Could not delete activity_tag"), undefined);

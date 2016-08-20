@@ -82,14 +82,14 @@ IndexController = {
         var err = new Error("Could not find trip:\n" + error.message);
         err.status = 500;
       } else {
-        Activity.activity_by_tag(tripID, function(error, activities) {
+        // Activity.activity_by_tag(tripID, function(error, activities) {
           res.render('maptrip', {
             title: "Travel Helper",
             trip: trip,
-            loggedIn: loggedIn,
-            activities: activities
+            loggedIn: loggedIn
+            // activities: activities
           })
-        });
+        // });
       };
     });
 
@@ -121,10 +121,10 @@ IndexController = {
   },
 
   deleteActivity: function(req, res, next) {
-    var activityID = req.body.id;
+    var activity_google_id = req.body.id;
     var tagID = req.params.id;
-    Trips.deleteActivityFromDatabase(activityID, function(error, item) {
-      if(error) {
+    Trips.deleteActivityFromDatabase(activity_google_id, tagID, function(error, item) {
+      if (error) {
         var err = new Error("Error deleting movie:\n" + error.message);
         err.status = 500;
         next(err);
@@ -132,7 +132,6 @@ IndexController = {
         Activity.activity_by_tag(tagID, function(error, activities) {
           // do some error handling here!
           //map activities so they show up
-          // console.log(activities);
           res.json(activities);
         })
       }

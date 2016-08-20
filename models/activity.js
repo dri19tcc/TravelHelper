@@ -9,10 +9,12 @@ var Activity = function(activity) {
   this.longitude = activity.longitude,
   this.latitude = activity.latitude,
   this.phone = activity.phone,
-  this.id = activity.id
+  this.google_id = activity.google_id
 };
 
 Activity.activity_by_tag = function(tagID, callback) {
+  console.log("This is tagID: ", tagID);
+  console.log("inside activity model");
   db.find_activities([tagID], function(error, activities) {
     if (error) {
       callback(error, undefined);
