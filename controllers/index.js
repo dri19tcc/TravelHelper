@@ -76,15 +76,13 @@ IndexController = {
   showTrip: function(req, res) { //database call, look up current trip, and the map and all the points
     var tripID = req.params.id;
     var loggedIn = req.session.passport ? true : false;
-    
+
     Trips.findOneTrip(tripID, function(error, trip) {
       if(error) {
         var err = new Error("Could not find trip:\n" + error.message);
         err.status = 500;
       } else {
         Activity.activity_by_tag(tripID, function(error, activities) {
-          console.log("ShowTrip activities: ", activities);
-
           res.render('maptrip', {
             title: "Travel Helper",
             trip: trip,
@@ -97,8 +95,7 @@ IndexController = {
 
   },
 
-  // update schema, use above function, update model to handle all things
-  addActivity: function(req, res) {
+  addActivity: function(req, res) { // update schema, use above function, update model to handle all things
     var activityStuff = req.body;
     var tagID = req.body.tagID;
     Trips.newActivity(activityStuff, function(error, activity) {
@@ -106,9 +103,7 @@ IndexController = {
         var err = new Error("Error creating trip:\n" + error.message);
         err.status = 500;
       } else {
-        // console.log(activity);
         Activity.activity_by_tag(tagID, function(error, activities) {
-          // console.log("activities: ", activities);
           // do some error handling here!
           //map activities so they show up
           res.json(activities);

@@ -15,7 +15,6 @@ CREATE TABLE tag(
 
 DROP TABLE IF EXISTS user_tag; --Joining table for a users trip
 CREATE TABLE user_tag(
-  id serial PRIMARY KEY,
   user_id int,
   tag_id int
 );
@@ -29,12 +28,12 @@ CREATE TABLE activity(
   phone text,
   address text,
   website text,
-  photo_url text
+  photo_url text,
+  google_id text
 );
 
 DROP TABLE IF EXISTS activity_tag;
 CREATE TABLE activity_tag(
-  id serial PRIMARY KEY,
-  activity_id int,
+  activity_google_id int,
   tag_id int
 );

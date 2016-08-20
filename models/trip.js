@@ -65,17 +65,19 @@ Trip.findOneTrip = function(tripID, callback) { // break out into another method
 };
 
 Trip.newActivity = function(params, callback) {
-  // console.log("This is params: ", params);
-  var name = params.name;
-  var address = params.address;
-  var website = params.website;
-  var latitude = params.latitude;
-  var longitude = params.longitude;
-  var phone = params.phone;
-  var photo_url = params.photo_url;
+  var activityHash = {
+    name: params.name,
+    address: params.address,
+    website: params.website,
+    latitude: params.latitude,
+    longitude: params.longitude,
+    phone: params.phone,
+    photo_url: params.photo_url,
+    google_id: params.google_id
+  };
 
   var tagID = params.tagID;
-  db.activity.insert({name: name, address: address, website: website, latitude: latitude, longitude: longitude, phone: phone, photo_url: photo_url}, function(error, activity) {
+  db.activity.insert(activityHash, function(error, activity) {
     if (error || !activity) {
       console.log("error updating activity error");
       callback(error || new Error("Could not save activity"), undefined);
@@ -84,35 +86,28 @@ Trip.newActivity = function(params, callback) {
         if (error) {
           callback(error, undefined);
         } else {
-          db.activity_tag.save({activity_id: activity.id, tag_id: tagID}, function(error, item) {
+          db.activity_tag.save({activity_google_id: activity.google_id, tag_id: tagID}, function(error, item) {
             if (error) {
               callback(error, undefined)
             } else {
               console.log("all tables updated in new activity");
             }
-          })
+          });
         }
-      })
+      });
       callback(null, activity);
     }
   });
 }
 
 Trip.deleteActivityFromDatabase = function(activityID, callback) {
-  db.activity.destroy({id: activityID}, function(error, result) {
-    if (error || !result) {
-      console.log("Error deleting activity");
-      callback(error || new Error("Could not delete activity"), undefined);
+  db.activity_tag.destroy({activity_id: activityID}, function(err, res) {
+    if (err || !res) {
+      console.log("error deleting activity_tag");
+      callback(error || new Error("Could not delete activity_tag"), undefined);
     } else {
-      db.activity_tag.destroy({activity_id: activityID}, function(err, res) {
-        if (err || !res) {
-          console.log("error deleting activity_tag");
-          callback(error || new Error("Could not delete activity_tag"), undefined);
-        } else {
-          console.log("all tables updated while deleting activity");
-        }
-      })
-      callback(null, result);
+      console.log("all tables updated while deleting activity");
+      callback(null, res);
     }
   });
 }

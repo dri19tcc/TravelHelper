@@ -121,12 +121,12 @@ $('.deleteActivity').on('submit', function(event) {
   });
 })
 
-$('#addActivity').on('submit', function(event) {
+$('.addActivity').on('submit', function(event) {
   event.preventDefault();
   selectedActivity.tagID = event.target.children.id.value
   $.post( "/trips/addActivity", selectedActivity, function(data) {
-    // console.log("this is data: ", data);
-    // console.log("This is selectedActivity: ", selectedActivity);
+    console.log("this is data: ", data);
+    console.log("This is selectedActivity: ", selectedActivity);
 
     // $("#toDo").append( // first line works with .name, switching to .id
     //   '<div class="' + selectedActivity.id + '">' +
@@ -141,11 +141,11 @@ $('#addActivity').on('submit', function(event) {
     //   '</form>' +
     //   '</div><br/><br/>'
     // )
-    // addMarkers(selectedActivity);
 
     // initMap()
     // makeBoundsForMap(selectedActivity.latitude, selectedActivity.longitude);
   });
+  addMarkers(selectedActivity);
   updateMyPage(selectedActivity.tagID);
 })
 
@@ -166,7 +166,7 @@ function addMarkers(location) {
 }
 
 function addMarkersFromDatabase() {
-  var tagID = $("#addActivity").children('input[name=id]').val();
+  var tagID = $(".addActivity").children('input[name=id]').val();
   $.get('/trips/findActivities?tagID=' + tagID , function(data) {
     for (var i = 0; i < data.length; i++) { // Adds all stored markers and does bounds for each
       addMarkers(data[i]);
@@ -201,10 +201,14 @@ function makeBoundsForMap(lat, long) {
 
 function updateMyPage(tagID) {
   $.get('/trips/' + tagID, function() {
-    
+
   })
   latLngBounds = [];
   initMap();
+}
+
+function initList() {
+
 }
 
 // function updateMyPage(activites)
