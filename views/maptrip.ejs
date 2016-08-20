@@ -47,7 +47,7 @@
 
         <% var activities = trip.activities %>
         <% for(var i = 0; i < activities.length; i++) { %>
-          <div class="<%= activities[i].id %>">
+          <div class="<%= activities[i].google_id %>">
             <p><a href='#'><%= activities[i].name %></a></p>
             <p><%= activities[i].address %></p>
             <p><%= activities[i].phone %></p>
@@ -71,7 +71,7 @@
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="/javascripts/map.js"></script>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?libraries=places&key=<%= process.env.MAPS_API_KEY %>&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?libraries=places&key=<%= process.env.MAPS_API_KEY %>&callback=initGoogle">
     </script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> <!-- Brings in Bootstrap -->
     <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- This is to use OAuth sign in -->

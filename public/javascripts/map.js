@@ -69,17 +69,15 @@ var styles = [
 
 var selectedActivity = {};
 var map;
-var latLngBounds = []
+var latLngBounds = [];
 
-function initMap() {
-  var mapDiv = document.getElementById('map');
-  map = new google.maps.Map(mapDiv, {
-    center: {lat: 37.09024, lng: -95.712891}, // usa
-    zoom: 3,
-    scrollwheel: false,
-    styles: styles
-  });
+function initGoogle() {
+  initAutoComplete();
+  initMap();
+  addMarkersFromDatabase();
+}
 
+function initAutoComplete() { // shorthand document.ready function jQuery
   var timeAutocomplete = new google.maps.places.Autocomplete( // This autocomplete is for use in the search within time entry box.
     document.getElementById('search-within-time-text')
   );
@@ -92,7 +90,6 @@ function initMap() {
       window.alert("Autocomplete's returned place contains no geometry");
       return;
     }
-    // console.log(place);
     selectedActivity = {
       google_id: place.id,
       name: place.name,
@@ -104,49 +101,55 @@ function initMap() {
       website: place.website
     };
   });
-  addMarkersFromDatabase();
 }
 
-//removeItem
-$('.deleteActivity').on('submit', function(event) {
+function initMap() {
+  var mapDiv = document.getElementById('map');
+  map = new google.maps.Map(mapDiv, {
+    center: {lat: 37.09024, lng: -95.712891}, // usa
+    zoom: 3,
+    scrollwheel: false,
+    styles: styles
+  });
+}
+
+$(document).on('submit', '.deleteActivity', function(event) { //everything now has an event builder.  Each knows it has a delete handler
   event.preventDefault();
   tagID = event.target.children.tagID.value;
   activityToDeleteID = event.target.children.google_id.value;
   activityDeleteHashID = {google_id: activityToDeleteID}
-  $.post( "/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
+  $.post("/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
     //// rerender all activies
     // $.get all activities
     $("." + activityToDeleteID).remove();
-    updateMyPage(tagID);
+    latLngBounds = [];
+    initMap();
+    addMarkersFromDatabase();
   });
 })
 
 $('.addActivity').on('submit', function(event) {
   event.preventDefault();
-  selectedActivity.tagID = event.target.children.id.value
+  var tagID = event.target.children.id.value;
+  selectedActivity.tagID = tagID;
+
+  $("#toDo").empty();
   $.post( "/trips/addActivity", selectedActivity, function(data) {
-    // console.log("this is data: ", data);
-    // console.log("This is selectedActivity: ", selectedActivity);
-
-    // $("#toDo").append( // first line works with .name, switching to .id
-    //   '<div class="' + selectedActivity.id + '">' +
-    //   '<p><a href="#">' + selectedActivity.name + '</a></p>' +
-    //   '<p>' + selectedActivity.address + '</p>' +
-    //   '<p>' + selectedActivity.phone + '</p>' +
-    //   '<p><a href="' + selectedActivity.website + '">Website</a></p>' +
-    //   '<form class="deleteActivity">' +
-    //   '<input type="hidden" name="tagID" value="' + selectedActivity.tagID + '">' +
-    //   '<input type="hidden" name="id" value="' + data.id + '">' +
-    //   '<p><input class="btn btn-secondary" type="submit" value="Delete"/></p>' +
-    //   '</form>' +
-    //   '</div><br/><br/>'
-    // )
-
-    // initMap()
-    // makeBoundsForMap(selectedActivity.latitude, selectedActivity.longitude);
+    console.log("this is data: ", data);
+    initMap();
+    addMarkersFromDatabase();
+    for (var i = 0; i < data.length; i++) {
+      addToDo(data[i], tagID);
+    }
+    // initMap();
+    // for (var i = 0; i < data.length; i++) {
+    //   console.log(data[i].name);
+    //   addToDo(data[i], tagID);
+    //   addMarkers(data[i]);
+    //   makeBoundsForMap(data[i].latitude, data[i].longitude);
+    // }
+    $("#search-within-time-text").val('');
   });
-  addMarkers(selectedActivity);
-  updateMyPage(selectedActivity.tagID);
 })
 
 function addMarkers(location) {
@@ -170,10 +173,9 @@ function addMarkersFromDatabase() {
   $.get('/trips/findActivities?tagID=' + tagID , function(data) {
     for (var i = 0; i < data.length; i++) { // Adds all stored markers and does bounds for each
       addMarkers(data[i]);
-      makeBoundsForMap(parseFloat(data[i].latitude), parseFloat(data[i].longitude));
+      makeBoundsForMap(data[i].latitude, data[i].longitude);
     }
   });
-
 }
 
 
@@ -191,7 +193,7 @@ function populateInfoWindow(marker, info, infowindow) {
 
 function makeBoundsForMap(lat, long) {
   var bounds = new google.maps.LatLngBounds(); // makes map start showing bounds
-  var newBounds = new google.maps.LatLng({lat: lat, lng: long});
+  var newBounds = new google.maps.LatLng({lat: parseFloat(lat), lng: parseFloat(long)});
   latLngBounds.push(newBounds);
   for (var i = 0; i < latLngBounds.length; i++) {
     bounds.extend(latLngBounds[i]);
@@ -199,31 +201,18 @@ function makeBoundsForMap(lat, long) {
   map.fitBounds(bounds);
 }
 
-function updateMyPage(tagID) {
-  $.get('/trips/' + tagID, function() {
-
-  })
-  latLngBounds = [];
-  initMap();
+function addToDo(activity, tagID) {
+  $("#toDo").append( // first line works with .name, switching to .id
+    '<div class="' + activity.google_id + '">' +
+    '<p><a href="#">' + activity.name + '</a></p>' +
+    '<p>' + activity.address + '</p>' +
+    '<p>' + activity.phone + '</p>' +
+    '<p><a href="' + activity.website + '">Website</a></p>' +
+    '<form class="deleteActivity">' +
+    '<input type="hidden" name="tagID" value="' + tagID + '">' +
+    '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
+    '<p><input class="btn btn-secondary" type="submit" value="Delete"/></p>' +
+    '</form>' +
+    '</div><br/><br/>'
+  )
 }
-
-function initList() {
-
-}
-
-// function updateMyPage(activites)
-// initMap(activies)
-// for each activity, add a marker
-// initList(actiovies)
-// destroy current list
-// for each activty, add a activity to list
-
-// function addItem
-// $.post(stuff, function(data)
-// $.get(allActivitesByTag, fucntion(activities))
-// updateMyPage(activities)
-
-// function removeItem
-// $.delete(myTag, fucntion(data))
-// $.get(allActivitesByTag, fucntion(activities))
-// updateMyPage(activites)

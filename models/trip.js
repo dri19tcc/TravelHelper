@@ -88,12 +88,14 @@ Trip.newActivity = function(params, callback) {
           } else {
             Trip.updateActivityTag(activity.google_id, tagID, callback);
             Trip.updateTagDate(tagID, callback);
+            console.log("add activity: ", activity);
             callback(null, activity);
           }
         });
       } else {
         Trip.updateActivityTag(result.google_id, tagID, callback);
         Trip.updateTagDate(tagID, callback);
+        console.log("add result: ", result);
         callback(null, result);
       }
     }

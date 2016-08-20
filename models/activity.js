@@ -13,8 +13,6 @@ var Activity = function(activity) {
 };
 
 Activity.activity_by_tag = function(tagID, callback) {
-  console.log("This is tagID: ", tagID);
-  console.log("inside activity model");
   db.find_activities([tagID], function(error, activities) {
     if (error) {
       callback(error, undefined);
