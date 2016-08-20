@@ -36,9 +36,7 @@ Trip.new = function(params, callback) {
           db.user_tag.save({user_id: user.id, tag_id: item.id}, function(err, res) {
             if (error) {
               callback(error, undefined);
-            } else {
-              // console.log("table updated");
-            };
+            }
           })
         };
       });
@@ -76,39 +74,54 @@ Trip.newActivity = function(params, callback) {
     photo_url: params.photo_url,
     google_id: params.google_id
   };
-
   var tagID = params.tagID;
-  // find or create by instead of insert
-  db.activity.insert(activityHash, function(error, activity) {
-    if (error || !activity) {
-      console.log("error updating activity error");
-      callback(error || new Error("Could not save activity"), undefined);
+
+  db.activity.findOne({google_id: activityHash.google_id}, function (error, result) {
+    if (error) {
+      callback(error, undefined)
     } else {
-      db.tag.update({id: tagID, modified_date: new Date()}, function(error, tag) {
-        if (error) {
-          callback(error, undefined);
-        } else {
-          db.activity_tag.save({activity_google_id: activity.google_id, tag_id: tagID}, function(error, item) {
-            if (error) {
-              callback(error, undefined)
-            } else {
-              console.log("all tables updated in new activity");
-            }
-          });
-        }
-      });
-      callback(null, activity);
+      if (!result) { // find or create by instead of insert
+        db.activity.insert(activityHash, function(error, activity) {
+          if (error || !activity) {
+            console.log("error updating activity error", error);
+            callback(error || new Error("Could not save activity"), undefined);
+          } else {
+            Trip.updateActivityTag(activity.google_id, tagID, callback);
+            Trip.updateTagDate(tagID, callback);
+            callback(null, activity);
+          }
+        });
+      } else {
+        Trip.updateActivityTag(result.google_id, tagID, callback);
+        Trip.updateTagDate(tagID, callback);
+        callback(null, result);
+      }
+    }
+  });
+}
+
+Trip.updateTagDate = function(tagID, callback) {
+  db.tag.update({id: tagID, modified_date: new Date()}, function(error, tag) {
+    if (error) {
+      callback(error, undefined);
+    }
+  });
+}
+
+Trip.updateActivityTag = function(activity_google_id, tagID, callback) {
+  db.activity_tag.save({activity_google_id: activity_google_id, tag_id: tagID}, function(error, item) {
+    if (error) {
+      callback(error, undefined)
     }
   });
 }
 
 Trip.deleteActivityFromDatabase = function(activity_google_id, tagID, callback) {
-  db.activity_tag.destroy({google_id: activity_google_id, tag_id: tagID}, function(err, res) {
+  db.activity_tag.destroy({activity_google_id: activity_google_id, tag_id: tagID}, function(err, res) {
     if (err || !res) {
-      console.log("error deleting activity_tag");
-      callback(error || new Error("Could not delete activity_tag"), undefined);
+      console.log("error deleting activity_tag", err);
+      callback(err || new Error("Could not delete activity_tag"), undefined);
     } else {
-      console.log("all tables updated while deleting activity");
       callback(null, res);
     }
   });

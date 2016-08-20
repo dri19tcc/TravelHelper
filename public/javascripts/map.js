@@ -94,7 +94,7 @@ function initMap() {
     }
     // console.log(place);
     selectedActivity = {
-      id: place.id,
+      google_id: place.id,
       name: place.name,
       latitude: place.geometry.location.lat(),
       longitude: place.geometry.location.lng(),
@@ -111,8 +111,8 @@ function initMap() {
 $('.deleteActivity').on('submit', function(event) {
   event.preventDefault();
   tagID = event.target.children.tagID.value;
-  activityToDeleteID = event.target.children.id.value;
-  activityDeleteHashID = {id: activityToDeleteID}
+  activityToDeleteID = event.target.children.google_id.value;
+  activityDeleteHashID = {google_id: activityToDeleteID}
   $.post( "/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
     //// rerender all activies
     // $.get all activities
@@ -125,8 +125,8 @@ $('.addActivity').on('submit', function(event) {
   event.preventDefault();
   selectedActivity.tagID = event.target.children.id.value
   $.post( "/trips/addActivity", selectedActivity, function(data) {
-    console.log("this is data: ", data);
-    console.log("This is selectedActivity: ", selectedActivity);
+    // console.log("this is data: ", data);
+    // console.log("This is selectedActivity: ", selectedActivity);
 
     // $("#toDo").append( // first line works with .name, switching to .id
     //   '<div class="' + selectedActivity.id + '">' +

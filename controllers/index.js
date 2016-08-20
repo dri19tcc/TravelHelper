@@ -82,14 +82,11 @@ IndexController = {
         var err = new Error("Could not find trip:\n" + error.message);
         err.status = 500;
       } else {
-        // Activity.activity_by_tag(tripID, function(error, activities) {
-          res.render('maptrip', {
-            title: "Travel Helper",
-            trip: trip,
-            loggedIn: loggedIn
-            // activities: activities
-          })
-        // });
+        res.render('maptrip', {
+          title: "Travel Helper",
+          trip: trip,
+          loggedIn: loggedIn
+        })
       };
     });
 
@@ -121,7 +118,7 @@ IndexController = {
   },
 
   deleteActivity: function(req, res, next) {
-    var activity_google_id = req.body.id;
+    var activity_google_id = req.body.google_id;
     var tagID = req.params.id;
     Trips.deleteActivityFromDatabase(activity_google_id, tagID, function(error, item) {
       if (error) {
