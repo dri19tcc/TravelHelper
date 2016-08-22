@@ -139,8 +139,14 @@ IndexController = {
   completeActivity: function(req, res) {
     var tagID = req.body.tagID;
     var google_id = req.body.google_id;
-    console.log("in controler completeActivity");
-    // Activity.completedActivityUpdateDatabase()
+    Activity.completedActivityUpdateDatabase(tagID, google_id, function(error, result) {
+      if (error) {
+        var err = new Error("Error deleting movie:\n" + error.message);
+        err.status = 500
+      } else {
+        res.json(result)
+      }
+    });
   }
 }
 

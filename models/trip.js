@@ -22,9 +22,9 @@ Trip.find_all = function(googleID, callback) { // left join instead of inner joi
   });
 };
 
-Trip.new = function(params, callback) {
-  var name = params[0].name;
-  var google_id = params[1]; // this gives the google_id
+Trip.new = function(users, callback) {
+  var name = users[0].name;
+  var google_id = users[1]; // this gives the google_id
   db.tag.insert({name: name, modified_date: new Date()},function(error, item) {
     if(error || !item) {
       callback(error || new Error("Could not retrieve tag"), undefined);
@@ -63,17 +63,17 @@ Trip.findOneTrip = function(tripID, callback) { // break out into another method
   });
 };
 
-Trip.newActivity = function(params, callback) {
+Trip.newActivity = function(activity, callback) {
   var activityHash = {
-    name: params.name,
-    address: params.address,
-    website: params.website,
-    latitude: params.latitude,
-    longitude: params.longitude,
-    phone: params.phone,
-    google_id: params.google_id
+    name: activity.name,
+    address: activity.address,
+    website: activity.website,
+    latitude: activity.latitude,
+    longitude: activity.longitude,
+    phone: activity.phone,
+    google_id: activity.google_id
   };
-  var tagID = params.tagID;
+  var tagID = activity.tagID;
 
   db.activity.findOne({google_id: activityHash.google_id}, function (error, result) {
     if (error) {
