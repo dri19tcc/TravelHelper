@@ -141,13 +141,6 @@ $('.addActivity').on('submit', function(event) {
     for (var i = 0; i < data.length; i++) {
       addToDo(data[i], tagID);
     }
-    // initMap();
-    // for (var i = 0; i < data.length; i++) {
-    //   console.log(data[i].name);
-    //   addToDo(data[i], tagID);
-    //   addMarkers(data[i]);
-    //   makeBoundsForMap(data[i].latitude, data[i].longitude);
-    // }
     $("#search-within-time-text").val('');
   });
 })
@@ -182,7 +175,6 @@ function addMarkersFromDatabase() {
 function populateInfoWindow(marker, info, infowindow) {
   if (infowindow.marker != marker) { // Check to make sure the infowindow is not already opened on this marker.
     infowindow.marker = marker;
-    // console.log(info);
     infowindow.setContent('<div><p>' + info.name + '</p><p>Phone: ' + info.phone + '</p><p>Website: ' + info.website + '</p></div>')
     infowindow.open(map, marker); // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick', function() {
