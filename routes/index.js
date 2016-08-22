@@ -20,4 +20,6 @@ router.post('/trips/addActivity', Controller.addActivity);
 
 router.post('/trips/:id/deleteActivity', Controller.deleteActivity);
 
+router.post('/trips/:id/completeActivity', Controller.completeActivity);
+
 module.exports = router;

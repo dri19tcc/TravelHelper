@@ -134,6 +134,10 @@ IndexController = {
         })
       }
     })
+  },
+
+  completeActivity: function(req, res) {
+    console.log("req in controller complete", req.body);
   }
 }
 

@@ -113,9 +113,9 @@ function initMap() {
 
 $(document).on('submit', '.deleteActivity', function(event) { //everything now has an event builder.  Each knows it has a delete handler
   event.preventDefault();
-  tagID = event.target.children.tagID.value;
-  activityToDeleteID = event.target.children.google_id.value;
-  activityDeleteHashID = {google_id: activityToDeleteID}
+  var tagID = event.target.children.tagID.value;
+  var activityToDeleteID = event.target.children.google_id.value;
+  var activityDeleteHashID = {google_id: activityToDeleteID}
   $.post("/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
     //// rerender all activies
     // $.get all activities
@@ -142,6 +142,17 @@ $('.addActivity').on('submit', function(event) {
     $("#search-within-time-text").val('');
   });
 })
+
+$('.completedActivity').on('submit', function(event) {
+  event.preventDefault();
+  var idsToSend = {
+    tagID: event.target.children.tagID.value,
+    google_id: event.target.children.google_id.value
+  }
+  $.post("trips/completeActivity", idsToSend, function(data) {
+    
+  });
+});
 
 function addMarkers(location, tagID) {
   var defaultIcon = makeMarkerIcon('0091ff');
