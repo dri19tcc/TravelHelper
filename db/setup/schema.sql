@@ -28,13 +28,13 @@ CREATE TABLE activity(
   longitude text,
   phone text,
   address text,
-  website text,
-  photo_url text
+  website text
 );
 
 DROP TABLE IF EXISTS activity_tag;
 CREATE TABLE activity_tag(
   id serial PRIMARY KEY,
   activity_google_id text,
-  tag_id int
+  tag_id int,
+  completed boolean NOT NULL DEFAULT FALSE
 );

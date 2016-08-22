@@ -96,7 +96,6 @@ function initAutoComplete() { // shorthand document.ready function jQuery
       longitude: place.geometry.location.lng(),
       phone: place.formatted_phone_number,
       address: place.formatted_address,
-      photo_url: place.url,
       website: place.website
     };
   });
@@ -178,7 +177,7 @@ function populateInfoWindow(marker, info, tagID, infowindow) {
     infowindow.setContent(
       '<div><p>' + info.name + '</p><p>Phone: ' + info.phone + '</p><p>Website: ' + info.website + '</p>' +
         '<form class="deleteActivity">' +
-          '<input type="hidden" name="tagID" value="' + tagID + '">' + 
+          '<input type="hidden" name="tagID" value="' + tagID + '">' +
           '<input type="hidden" name="google_id" value="' + info.google_id + '">' +
           '<button class="glyphicon glyphicon-trash" aria-hidden="true"></button>' +
         '</form>' +

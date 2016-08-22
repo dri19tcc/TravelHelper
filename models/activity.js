@@ -5,7 +5,6 @@ var Activity = function(activity) {
   this.name = activity.name,
   this.address = activity.address,
   this.website = activity.website,
-  this.photoUrl = activity.photo_url,
   this.longitude = activity.longitude,
   this.latitude = activity.latitude,
   this.phone = activity.phone,

@@ -71,7 +71,6 @@ Trip.newActivity = function(params, callback) {
     latitude: params.latitude,
     longitude: params.longitude,
     phone: params.phone,
-    photo_url: params.photo_url,
     google_id: params.google_id
   };
   var tagID = params.tagID;
