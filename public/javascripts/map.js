@@ -84,7 +84,6 @@ function initAutoComplete() { // shorthand document.ready function jQuery
 
   timeAutocomplete.addListener('place_changed', function() {
     // infowindow.close();
-    // marker.setVisible(false);
     var place = timeAutocomplete.getPlace();
     if (!place.geometry) {
       window.alert("Autocomplete's returned place contains no geometry");
@@ -135,7 +134,7 @@ $('.addActivity').on('submit', function(event) {
 
   $("#toDo").empty();
   $.post( "/trips/addActivity", selectedActivity, function(data) {
-    console.log("this is data: ", data);
+    // console.log("this is data: ", data);
     initMap();
     addMarkersFromDatabase();
     for (var i = 0; i < data.length; i++) {
@@ -145,7 +144,7 @@ $('.addActivity').on('submit', function(event) {
   });
 })
 
-function addMarkers(location) {
+function addMarkers(location, tagID) {
   var marker = new google.maps.Marker({
     position: {lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)},
     title: location.name,
@@ -157,7 +156,7 @@ function addMarkers(location) {
   var largeInfowindow = new google.maps.InfoWindow(); // adding in an info window
 
   marker.addListener('click', function() {
-    populateInfoWindow(this, location, largeInfowindow);
+    populateInfoWindow(this, location, tagID, largeInfowindow);
   });
 }
 
@@ -165,17 +164,26 @@ function addMarkersFromDatabase() {
   var tagID = $(".addActivity").children('input[name=id]').val();
   $.get('/trips/findActivities?tagID=' + tagID , function(data) {
     for (var i = 0; i < data.length; i++) { // Adds all stored markers and does bounds for each
-      addMarkers(data[i]);
+      addMarkers(data[i], tagID);
       makeBoundsForMap(data[i].latitude, data[i].longitude);
     }
   });
 }
 
-
-function populateInfoWindow(marker, info, infowindow) {
+function populateInfoWindow(marker, info, tagID, infowindow) {
   if (infowindow.marker != marker) { // Check to make sure the infowindow is not already opened on this marker.
     infowindow.marker = marker;
-    infowindow.setContent('<div><p>' + info.name + '</p><p>Phone: ' + info.phone + '</p><p>Website: ' + info.website + '</p></div>')
+    console.log("marker: ", marker);
+    console.log("info", info);
+    infowindow.setContent(
+      '<div><p>' + info.name + '</p><p>Phone: ' + info.phone + '</p><p>Website: ' + info.website + '</p>' +
+        '<form class="deleteActivity">' +
+          '<input type="hidden" name="tagID" value="' + tagID + '">' + 
+          '<input type="hidden" name="google_id" value="' + info.google_id + '">' +
+          '<button class="glyphicon glyphicon-trash" aria-hidden="true"></button>' +
+        '</form>' +
+      '</div>'
+    )
     infowindow.open(map, marker); // Make sure the marker property is cleared if the infowindow is closed.
     infowindow.addListener('closeclick', function() {
       infowindow.marker = null;
