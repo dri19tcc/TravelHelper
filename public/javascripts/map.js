@@ -70,8 +70,6 @@ var styles = [
 var selectedActivity = {};
 var map;
 var latLngBounds = [];
-var defaultIcon = makeMarkerIcon('0091ff');
-var highlightedIcon = makeMarkerIcon('FFFF24');
 
 function initGoogle() {
   initAutoComplete();
@@ -146,6 +144,10 @@ $('.addActivity').on('submit', function(event) {
 })
 
 function addMarkers(location, tagID) {
+  var defaultIcon = makeMarkerIcon('0091ff');
+  var highlightedIcon = makeMarkerIcon('FFFF24');
+  var completedIcon = makeMarkerIcon('8c8c8c');
+
   var marker = new google.maps.Marker({
     position: {lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)},
     title: location.name,
@@ -165,6 +167,10 @@ function addMarkers(location, tagID) {
   marker.addListener('mouseout', function() {
     this.setIcon(defaultIcon);
   });
+  // marker.addListener('click', function() {
+  //
+  //   this.setIcon(completedIcon);
+  // });
 }
 
 function addMarkersFromDatabase() {
@@ -180,8 +186,6 @@ function addMarkersFromDatabase() {
 function populateInfoWindow(marker, info, tagID, infowindow) {
   if (infowindow.marker != marker) { // Check to make sure the infowindow is not already opened on this marker.
     infowindow.marker = marker;
-    console.log("marker: ", marker);
-    console.log("info", info);
     infowindow.setContent(
       '<div><p>' + info.name + '</p><p>Phone: ' + info.phone + '</p><p>Website: ' + info.website + '</p>' +
         '<form class="deleteActivity">' +
