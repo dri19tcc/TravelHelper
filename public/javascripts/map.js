@@ -70,6 +70,8 @@ var styles = [
 var selectedActivity = {};
 var map;
 var latLngBounds = [];
+var defaultIcon = makeMarkerIcon('0091ff');
+var highlightedIcon = makeMarkerIcon('FFFF24');
 
 function initGoogle() {
   initAutoComplete();
@@ -148,7 +150,7 @@ function addMarkers(location, tagID) {
     position: {lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)},
     title: location.name,
     animation: google.maps.Animation.DROP,
-    // icon: ('0091ff'),
+    icon: defaultIcon,
     map: map
   });
 
@@ -156,6 +158,12 @@ function addMarkers(location, tagID) {
 
   marker.addListener('click', function() {
     populateInfoWindow(this, location, tagID, largeInfowindow);
+  });
+  marker.addListener('mouseover', function() {
+    this.setIcon(highlightedIcon);
+  });
+  marker.addListener('mouseout', function() {
+    this.setIcon(defaultIcon);
   });
 }
 
@@ -214,4 +222,15 @@ function addToDo(activity, tagID) {
     '</form>' +
     '</div><br/><br/>'
   )
+}
+
+function makeMarkerIcon(markerColor) {
+  var markerImage = new google.maps.MarkerImage(
+    'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
+    '|40|_|%E2%80%A2',
+    new google.maps.Size(21, 34),
+    new google.maps.Point(0, 0),
+    new google.maps.Point(10, 34),
+    new google.maps.Size(21,34));
+  return markerImage;
 }
