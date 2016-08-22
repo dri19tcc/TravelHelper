@@ -149,8 +149,9 @@ $('.completedActivity').on('submit', function(event) {
     tagID: event.target.children.tagID.value,
     google_id: event.target.children.google_id.value
   }
-  $.post("trips/completeActivity", idsToSend, function(data) {
-    console.log("data in completedActivity: ", data);
+  console.log("you clicked completedActivity");
+  $.post("/trips/" + idsToSend.tagID + "/completeActivity", idsToSend, function(data) {
+
   });
 });
 
@@ -178,10 +179,6 @@ function addMarkers(location, tagID) {
   marker.addListener('mouseout', function() {
     this.setIcon(defaultIcon);
   });
-  // marker.addListener('click', function() {
-  //
-  //   this.setIcon(completedIcon);
-  // });
 }
 
 function addMarkersFromDatabase() {

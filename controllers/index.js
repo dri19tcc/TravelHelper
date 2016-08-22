@@ -114,6 +114,7 @@ IndexController = {
     var activities = {};
     var tagID = req.query.tagID;
     Activity.activity_by_tag(tagID, function(error, activities) {
+      // error handling
       res.json(activities);
     });
   },
@@ -123,7 +124,7 @@ IndexController = {
     var tagID = req.params.id;
     Trips.deleteActivityFromDatabase(activity_google_id, tagID, function(error, item) {
       if (error) {
-        var err = new Error("Error deleting movie:\n" + error.message);
+        var err = new Error("Error deleting activity:\n" + error.message);
         err.status = 500;
         next(err);
       } else {
@@ -140,8 +141,8 @@ IndexController = {
     var tagID = req.body.tagID;
     var google_id = req.body.google_id;
     Activity.completedActivityUpdateDatabase(tagID, google_id, function(error, result) {
-      if (error) {
-        var err = new Error("Error deleting movie:\n" + error.message);
+      if (error || !result) {
+        var err = new Error("Error updating activity_tag:\n" + error.message);
         err.status = 500
       } else {
         res.json(result)

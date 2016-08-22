@@ -29,11 +29,10 @@ Activity.completedActivityUpdateDatabase = function(tagID, google_id, callback) 
       callback(error, undefined);
     } else {
       db.activity_tag.update({id: activity.id, completed: !activity.completed}, function(err, res) {
-        if (error) {
+        if (err) {
           callback(err, undefined);
         } else {
-          console.log("res in activity model: ", res);
-          return res;
+          callback(null, res);
         }
       });
     }
