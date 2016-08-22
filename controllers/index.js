@@ -137,7 +137,10 @@ IndexController = {
   },
 
   completeActivity: function(req, res) {
-    console.log("req in controller complete", req.body);
+    var tagID = req.body.tagID;
+    var google_id = req.body.google_id;
+    console.log("in controler completeActivity");
+    // Activity.completedActivityUpdateDatabase()
   }
 }
 

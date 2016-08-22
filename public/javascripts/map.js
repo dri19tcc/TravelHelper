@@ -133,7 +133,7 @@ $('.addActivity').on('submit', function(event) {
 
   $("#toDo").empty();
   $.post( "/trips/addActivity", selectedActivity, function(data) {
-    // console.log("this is data: ", data);
+    console.log("this is data: ", data);
     initMap();
     addMarkersFromDatabase();
     for (var i = 0; i < data.length; i++) {
@@ -150,7 +150,7 @@ $('.completedActivity').on('submit', function(event) {
     google_id: event.target.children.google_id.value
   }
   $.post("trips/completeActivity", idsToSend, function(data) {
-    
+    console.log("data in completedActivity: ", data);
   });
 });
 
