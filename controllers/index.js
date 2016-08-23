@@ -102,7 +102,6 @@ IndexController = {
         err.status = 500;
       } else {
         Activity.activity_by_tag(tagID, function(error, activities) {
-          // console.log("This is activities in controller: ", activities);
           res.json(activities);
           // do some error handling here!
         });

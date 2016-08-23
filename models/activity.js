@@ -8,7 +8,8 @@ var Activity = function(activity) {
   this.longitude = activity.longitude,
   this.latitude = activity.latitude,
   this.phone = activity.phone,
-  this.google_id = activity.google_id
+  this.google_id = activity.google_id,
+  this.completed = activity.completed
 };
 
 Activity.activity_by_tag = function(tagID, callback) {

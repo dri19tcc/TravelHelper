@@ -155,7 +155,7 @@ $('.completedActivity').on('submit', function(event) {
   });
 });
 
-function addMarkers(location, tagID) {
+function addMarkers(location, tagID, completed) {
   var defaultIcon = makeMarkerIcon('0091ff');
   var highlightedIcon = makeMarkerIcon('FFFF24');
   var completedIcon = makeMarkerIcon('8c8c8c');
@@ -164,7 +164,7 @@ function addMarkers(location, tagID) {
     position: {lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)},
     title: location.name,
     animation: google.maps.Animation.DROP,
-    icon: defaultIcon,
+    icon: completed ? completedIcon : defaultIcon,
     map: map
   });
 
@@ -185,7 +185,7 @@ function addMarkersFromDatabase() {
   var tagID = $(".addActivity").children('input[name=id]').val();
   $.get('/trips/findActivities?tagID=' + tagID , function(data) {
     for (var i = 0; i < data.length; i++) { // Adds all stored markers and does bounds for each
-      addMarkers(data[i], tagID);
+      addMarkers(data[i], tagID, data[i].completed);
       makeBoundsForMap(data[i].latitude, data[i].longitude);
     }
   });
