@@ -1,14 +1,13 @@
 var app = require('../app');
 var db = app.get('db');
-var Activity = require('./activity')
+var Activity = require('./activity');
 
 var Trip = function(trip) {
   this.tripID = trip.tag_id,
   this.tripName = trip.name,
   this.tripUpdate = trip.modified_date,
   this.activities = trip.activity
-};
-
+}
 
 Trip.find_all = function(googleID, callback) { // left join instead of inner join?
   db.find_all_tags([googleID], function(error, trips) {
@@ -18,9 +17,9 @@ Trip.find_all = function(googleID, callback) { // left join instead of inner joi
       callback(null, trips.map(function(trip) {
         return new Trip(trip)
       }));
-    };
+    }
   });
-};
+}
 
 Trip.new = function(users, callback) {
   var name = users[0].name;
@@ -37,13 +36,13 @@ Trip.new = function(users, callback) {
             if (error) {
               callback(error, undefined);
             }
-          })
-        };
+          });
+        }
       });
       callback(null, item);
-    };
+    }
   });
-};
+}
 
 Trip.findOneTrip = function(tripID, callback) { // break out into another method that calls all activities
   db.tag.findOne({id: tripID}, function(error, trip) {
@@ -58,10 +57,10 @@ Trip.findOneTrip = function(tripID, callback) { // break out into another method
           trip.activities = activities;
           callback(null, trip); // need a wrapper object that returns trip and activities
         }
-      })
-    };
+      });
+    }
   });
-};
+}
 
 // Trip.newActivity = function(activity, callback) { //won't be using this anymore so delete
 //   var activityHash = {
@@ -127,6 +126,5 @@ Trip.deleteActivityFromDatabase = function(activity_google_id, tagID, callback) 
     }
   });
 }
-
 
 module.exports = Trip;

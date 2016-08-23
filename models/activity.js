@@ -1,6 +1,6 @@
 var app = require('../app');
 var db = app.get('db');
-var Trip = require('./trip')
+var Trip = require('./trip');
 
 var Activity = function(activity) {
   this.name = activity.name,
@@ -11,7 +11,7 @@ var Activity = function(activity) {
   this.phone = activity.phone,
   this.google_id = activity.google_id,
   this.completed = activity.completed
-};
+}
 
 Activity.activity_by_tag = function(tagID, callback) {
   db.find_activities([tagID], function(error, activities) {
@@ -41,9 +41,8 @@ Activity.completedActivityUpdateDatabase = function(tagID, google_id, callback) 
   });
 }
 
-
-
 Activity.addNewActivity = function(activity, callback) {
+  var tagID = activity.tagID;
   var activityHash = {
     name: activity.name,
     address: activity.address,
@@ -52,8 +51,7 @@ Activity.addNewActivity = function(activity, callback) {
     longitude: activity.longitude,
     phone: activity.phone,
     google_id: activity.google_id
-  };
-  var tagID = activity.tagID;
+  }
 
   db.activity.findOne({google_id: activityHash.google_id}, function (error, result) {
     if (error) {
@@ -72,6 +70,8 @@ Activity.addNewActivity = function(activity, callback) {
           }
         });
       } else {
+
+        console.log("this is activity: ", Trip, Activity);
         Trip.updateActivityTag(result.google_id, tagID, callback);
         Trip.updateTagDate(tagID, callback);
         // console.log("add result: ", result);

@@ -1,6 +1,6 @@
 var Index = require('../models/index');
 var Trips = require('../models/trip');
-var Activity = require('../models/activity')
+var Activity = require('../models/activity');
 
 IndexController = {
 
@@ -103,7 +103,7 @@ IndexController = {
         err.status = 500;
       } else {
         // Activity.activity_by_tag(tagID, function(error, activities) {
-        //   res.json(activities); 
+        //   res.json(activities);
         //   // do some error handling here!
         // });
       }
