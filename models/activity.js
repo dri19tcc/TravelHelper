@@ -1,5 +1,6 @@
 var app = require('../app');
 var db = app.get('db');
+var Trip = require('./trip')
 
 var Activity = function(activity) {
   this.name = activity.name,
@@ -39,5 +40,53 @@ Activity.completedActivityUpdateDatabase = function(tagID, google_id, callback) 
     }
   });
 }
+
+
+
+Activity.addNewActivity = function(activity, callback) {
+  var activityHash = {
+    name: activity.name,
+    address: activity.address,
+    website: activity.website,
+    latitude: activity.latitude,
+    longitude: activity.longitude,
+    phone: activity.phone,
+    google_id: activity.google_id
+  };
+  var tagID = activity.tagID;
+
+  db.activity.findOne({google_id: activityHash.google_id}, function (error, result) {
+    if (error) {
+      callback(error, undefined)
+    } else {
+      if (!result) { // find or create by instead of insert
+        db.activity.insert(activityHash, function(error, activity) {
+          if (error || !activity) {
+            console.log("error updating activity error", error);
+            callback(error || new Error("Could not save activity"), undefined);
+          } else {
+            Trip.updateActivityTag(activity.google_id, tagID, callback); // in activity like above
+            Trip.updateTagDate(tagID, callback);
+            // console.log("add activity: ", activity);
+            callback(null, activity);
+          }
+        });
+      } else {
+        Trip.updateActivityTag(result.google_id, tagID, callback);
+        Trip.updateTagDate(tagID, callback);
+        // console.log("add result: ", result);
+        callback(null, result);
+      }
+    }
+  });
+}
+
+
+
+
+
+
+
+
 
 module.exports = Activity;
