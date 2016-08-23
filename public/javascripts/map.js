@@ -117,8 +117,6 @@ $(document).on('submit', '.deleteActivity', function(event) { //everything now h
   var activityToDeleteID = event.target.children.google_id.value;
   var activityDeleteHashID = {google_id: activityToDeleteID}
   $.post("/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
-    //// rerender all activies
-    // $.get all activities
     $("." + activityToDeleteID).remove();
     latLngBounds = [];
     initMap();
@@ -131,14 +129,15 @@ $('.addActivity').on('submit', function(event) {
   var tagID = event.target.children.id.value;
   selectedActivity.tagID = tagID;
 
-  $("#toDo").empty();
+  // $("#toDo").empty();
   $.post( "/trips/addActivity", selectedActivity, function(data) {
     console.log("this is data: ", data);
     initMap();
     addMarkersFromDatabase();
-    for (var i = 0; i < data.length; i++) {
-      addToDo(data[i], tagID);
-    }
+    addToDo(data, tagID);
+    // for (var i = 0; i < data.length; i++) {
+    //   addToDo(data[i], tagID);
+    // }
     $("#search-within-time-text").val('');
   });
 })

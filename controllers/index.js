@@ -90,23 +90,17 @@ IndexController = {
         })
       };
     });
-
   },
 
   addActivity: function(req, res) { // update schema, use above function, update model to handle all things
     var activityStuff = req.body;
     var tagID = req.body.tagID;
-    // Trips.newActivity(activityStuff, function(error, activity) {
     Activity.addNewActivity(activityStuff, function(error, activity) {
       if (error) {
         var err = new Error("Error creating trip:\n" + error.message);
         err.status = 500;
-      } else {
-        // Activity.activity_by_tag(tagID, function(error, activities) {
-        //   res.json(activities);
-        //   // do some error handling here!
-        // });
       }
+      res.json(activity);
     });
   },
 
@@ -114,24 +108,29 @@ IndexController = {
     var activities = {};
     var tagID = req.query.tagID;
     Activity.activity_by_tag(tagID, function(error, activities) {
-      // error handling
-      res.json(activities);
+      if (error || !activities) {
+        callback(error, undefined)
+      } else {
+        res.json(activities);
+      }
     });
   },
 
-  deleteActivity: function(req, res, next) {
+  deleteActivity: function(req, res) {
     var activity_google_id = req.body.google_id;
     var tagID = req.params.id;
     Trips.deleteActivityFromDatabase(activity_google_id, tagID, function(error, item) {
       if (error) {
-        var err = new Error("Error deleting activity:\n" + error.message);
-        err.status = 500;
-        next(err);
+        var errors = new Error("Error deleting activity:\n" + error.message);
+        errors.status = 500;
       } else {
-        Activity.activity_by_tag(tagID, function(error, activities) {
-          // do some error handling here!
-          //map activities so they show up
-          res.json(activities);
+        Activity.activity_by_tag(tagID, function(err, activities) {
+          if (err) {
+            console.log("Error in deleteActivity: ", err);
+            callback(err, undefined)
+          } else {
+            res.json(activities);
+          }
         })
       }
     })

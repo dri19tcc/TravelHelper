@@ -1,13 +1,15 @@
-var app = require('../app');
-var db = app.get('db');
-var Activity = require('./activity');
-
 var Trip = function(trip) {
   this.tripID = trip.tag_id,
   this.tripName = trip.name,
   this.tripUpdate = trip.modified_date,
   this.activities = trip.activity
 }
+
+module.exports = Trip
+
+var app = require('../app');
+var db = app.get('db');
+var Activity = require('./activity');
 
 Trip.find_all = function(googleID, callback) { // left join instead of inner join?
   db.find_all_tags([googleID], function(error, trips) {
@@ -63,6 +65,7 @@ Trip.findOneTrip = function(tripID, callback) { // break out into another method
 }
 
 // Trip.newActivity = function(activity, callback) { //won't be using this anymore so delete
+// console.log("activity in trips: ", activity);
 //   var activityHash = {
 //     name: activity.name,
 //     address: activity.address,
@@ -70,7 +73,8 @@ Trip.findOneTrip = function(tripID, callback) { // break out into another method
 //     latitude: activity.latitude,
 //     longitude: activity.longitude,
 //     phone: activity.phone,
-//     google_id: activity.google_id
+//     google_id: activity.google_id,
+//     completed: activity.completed
 //   };
 //   var tagID = activity.tagID;
 //
@@ -126,5 +130,3 @@ Trip.deleteActivityFromDatabase = function(activity_google_id, tagID, callback) 
     }
   });
 }
-
-module.exports = Trip;

@@ -1,7 +1,3 @@
-var app = require('../app');
-var db = app.get('db');
-var Trip = require('./trip');
-
 var Activity = function(activity) {
   this.name = activity.name,
   this.address = activity.address,
@@ -12,6 +8,12 @@ var Activity = function(activity) {
   this.google_id = activity.google_id,
   this.completed = activity.completed
 }
+
+module.exports = Activity;
+
+var app = require('../app');
+var db = app.get('db');
+var Trip = require('./trip');
 
 Activity.activity_by_tag = function(tagID, callback) {
   db.find_activities([tagID], function(error, activities) {
@@ -65,28 +67,14 @@ Activity.addNewActivity = function(activity, callback) {
           } else {
             Trip.updateActivityTag(activity.google_id, tagID, callback); // in activity like above
             Trip.updateTagDate(tagID, callback);
-            // console.log("add activity: ", activity);
             callback(null, activity);
           }
         });
       } else {
-
-        console.log("this is activity: ", Trip, Activity);
         Trip.updateActivityTag(result.google_id, tagID, callback);
         Trip.updateTagDate(tagID, callback);
-        // console.log("add result: ", result);
         callback(null, result);
       }
     }
   });
 }
-
-
-
-
-
-
-
-
-
-module.exports = Activity;
