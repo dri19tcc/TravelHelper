@@ -131,7 +131,6 @@ $('.addActivity').on('submit', function(event) {
 
   // $("#toDo").empty();
   $.post( "/trips/addActivity", selectedActivity, function(data) {
-    console.log("this is data: ", data);
     initMap();
     addMarkersFromDatabase();
     addToDo(data, tagID);
