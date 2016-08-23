@@ -135,9 +135,6 @@ $('.addActivity').on('submit', function(event) {
     initMap();
     addMarkersFromDatabase();
     addToDo(data, tagID);
-    // for (var i = 0; i < data.length; i++) {
-    //   addToDo(data[i], tagID);
-    // }
     $("#search-within-time-text").val('');
   });
 })
