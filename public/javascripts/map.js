@@ -143,13 +143,12 @@ $('.addActivity').on('submit', function(event) {
   });
 })
 
-$('.completedActivity').on('submit', function(event) {
+$(document).on('submit', '.completedActivity', function(event) {
   event.preventDefault();
   var idsToSend = {
     tagID: event.target.children.tagID.value,
     google_id: event.target.children.google_id.value
   }
-  console.log("you clicked completedActivity");
   $.post("/trips/" + idsToSend.tagID + "/completeActivity", idsToSend, function(data) {
     initMap();
     addMarkersFromDatabase();
@@ -200,7 +199,12 @@ function populateInfoWindow(marker, info, tagID, infowindow) {
         '<form class="deleteActivity">' +
           '<input type="hidden" name="tagID" value="' + tagID + '">' +
           '<input type="hidden" name="google_id" value="' + info.google_id + '">' +
-          '<button class="glyphicon glyphicon-trash" aria-hidden="true"></button>' +
+          '<button class="glyphicon glyphicon-trash" aria-hidden="true" type="submit"></button>' +
+        '</form>' +
+        '<form class="completedActivity">' +
+          '<input type="hidden" name="tagID" value="' + tagID + '">' +
+          '<input type="hidden" name="google_id" value="' + info.google_id + '">' +
+          '<button class="glyphicon glyphicon-ok" aria-hidden="true" type="submit"></button>' +
         '</form>' +
       '</div>'
     )
@@ -232,6 +236,11 @@ function addToDo(activity, tagID) {
     '<input type="hidden" name="tagID" value="' + tagID + '">' +
     '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
     '<p><input class="btn btn-secondary" type="submit" value="Delete"/></p>' +
+    '</form>' +
+    '<form class="completedActivity">' +
+    '<input type="hidden" name="tagID" value="' + tagID + '">' +
+    '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
+    '<p><input class="btn btn-secondary" type="submit" value="completed"/></p>' +
     '</form>' +
     '</div><br/><br/>'
   )
