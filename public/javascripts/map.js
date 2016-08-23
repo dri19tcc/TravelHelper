@@ -151,11 +151,12 @@ $('.completedActivity').on('submit', function(event) {
   }
   console.log("you clicked completedActivity");
   $.post("/trips/" + idsToSend.tagID + "/completeActivity", idsToSend, function(data) {
-
+    initMap();
+    addMarkersFromDatabase();
   });
 });
 
-function addMarkers(location, tagID, completed) {
+function addMarkers(location, tagID) {
   var defaultIcon = makeMarkerIcon('0091ff');
   var highlightedIcon = makeMarkerIcon('FFFF24');
   var completedIcon = makeMarkerIcon('8c8c8c');
@@ -164,7 +165,7 @@ function addMarkers(location, tagID, completed) {
     position: {lat: parseFloat(location.latitude), lng: parseFloat(location.longitude)},
     title: location.name,
     animation: google.maps.Animation.DROP,
-    icon: completed ? completedIcon : defaultIcon,
+    icon: location.completed ? completedIcon : defaultIcon,
     map: map
   });
 
@@ -177,7 +178,7 @@ function addMarkers(location, tagID, completed) {
     this.setIcon(highlightedIcon);
   });
   marker.addListener('mouseout', function() {
-    this.setIcon(defaultIcon);
+    this.setIcon(location.completed ? completedIcon : defaultIcon);
   });
 }
 
@@ -185,7 +186,7 @@ function addMarkersFromDatabase() {
   var tagID = $(".addActivity").children('input[name=id]').val();
   $.get('/trips/findActivities?tagID=' + tagID , function(data) {
     for (var i = 0; i < data.length; i++) { // Adds all stored markers and does bounds for each
-      addMarkers(data[i], tagID, data[i].completed);
+      addMarkers(data[i], tagID);
       makeBoundsForMap(data[i].latitude, data[i].longitude);
     }
   });
