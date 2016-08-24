@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "test": "clear; ./node_modules/.bin/istanbul cover -x 'spec/**/*' -- ./node_modules/.bin/jasmine-node --captureExceptions --verbose spec/",
+    "start": "node main.js",
     "db:drop": "dropdb travel_helper",
     "db:create": "createdb travel_helper",
     "db:schema": "node tasks/load_schema",
