@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 
 var session = require('express-session');
 
-var dotenv = require('dotenv').config(); // Use to keep keys secret (console.log(process.env);)
 
 var passport = require('passport'); // For google oauth
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -17,10 +16,21 @@ var http = require('http');
 
 var app = module.exports = express();
 
-var connectionString = "postgres://mapify.us-west-2.elasticbeanstalk.com/travel_helper";
-var db = massive.connectSync({connectionString : connectionString});
-app.set("db", db);
-http.createServer(app).listen(8080);
+var env = process.env.NODE_ENV || 'development';
+if (env === 'production') {
+  console.log("starting in production mode");
+  var connectionString = "postgres://mapify.us-west-2.elasticbeanstalk.com/travel_helper";
+  var db = massive.connectSync({connectionString : connectionString});
+  app.set("db", db);
+  http.createServer(app).listen(8080);
+} else if (env === 'development') {
+  console.log("starting in development mode");
+  var dotenv = require('dotenv').config(); // Use to keep keys secret (console.log(process.env);)
+  var connectionString = "postgres://localhost:5432/travel_helper";
+  var db = massive.connectSync({connectionString : connectionString});
+  app.set("db", db);
+  http.createServer(app).listen(8080);
+}
 
 passport.use(new GoogleStrategy({ // authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
   clientID: process.env.GOOGLE_CLIENT_ID,
