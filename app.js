@@ -17,7 +17,7 @@ var http = require('http');
 
 var app = module.exports = express();
 
-var connectionString = "postgres://localhost/travel_helper";
+var connectionString = "postgres://mapify.us-west-2.elasticbeanstalk.com/travel_helper";
 var db = massive.connectSync({connectionString : connectionString});
 app.set("db", db);
 http.createServer(app).listen(8080);
@@ -25,7 +25,7 @@ http.createServer(app).listen(8080);
 passport.use(new GoogleStrategy({ // authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://localhost:3000/auth/google/callback"
+  callbackURL: "http://mapify.us-west-2.elasticbeanstalk.com/auth/google/callback"
 },
 function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);
