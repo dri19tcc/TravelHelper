@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node main.js",
+    "start": "node ./bin/www",
     "db:drop": "dropdb travel_helper",
     "db:create": "createdb travel_helper",
     "db:schema": "node tasks/load_schema",
