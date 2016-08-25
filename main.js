@@ -17,6 +17,11 @@ var http = require('http');
 var app = module.exports = express();
 
 var env = process.env.NODE_ENV || 'development';
+
+console.log('----------------------------------------')
+console.log(process.env)
+console.log('----------------------------------------')
+
 if (env === 'production') {
   console.log("starting in production mode, listening on port " + process.env.PORT);
   var connectionString = "postgres://"+process.env.RDS_USERNAME+":"
