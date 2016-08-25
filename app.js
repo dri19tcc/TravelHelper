@@ -19,7 +19,13 @@ var app = module.exports = express();
 var env = process.env.NODE_ENV || 'development';
 if (env === 'production') {
   console.log("starting in production mode");
-  var connectionString = "postgres://mapify.us-west-2.elasticbeanstalk.com/travel_helper";
+  var connectionString = "postgres://"+process.env.RDS_USERNAME+":"
+                                      +process.env.RDS_PASSWORD+"@"
+                                      +process.env.RDS_HOSTNAME+":"
+                                      +process.env.RDS_PORT+"/"
+                                      +process.env.RDS_DB_NAME;
+
+  console.log("RDS connection string: " + connectionString);
   var db = massive.connectSync({connectionString : connectionString});
   app.set("db", db);
   http.createServer(app).listen(8080);
