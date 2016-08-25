@@ -18,7 +18,7 @@ var app = module.exports = express();
 
 var env = process.env.NODE_ENV || 'development';
 if (env === 'production') {
-  console.log("starting in production mode");
+  console.log("starting in production mode, listening on port " + process.env.PORT);
   var connectionString = "postgres://"+process.env.RDS_USERNAME+":"
                                       +process.env.RDS_PASSWORD+"@"
                                       +process.env.RDS_HOSTNAME+":"
@@ -28,7 +28,7 @@ if (env === 'production') {
   console.log("RDS connection string: " + connectionString);
   var db = massive.connectSync({connectionString : connectionString});
   app.set("db", db);
-  http.createServer(app).listen(8080);
+  http.createServer(app).listen(process.env.PORT);
 } else if (env === 'development') {
   console.log("starting in development mode");
   var dotenv = require('dotenv').config(); // Use to keep keys secret (console.log(process.env);)
