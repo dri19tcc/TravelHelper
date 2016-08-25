@@ -1,0 +1,14 @@
+branch-defaults:
+  master:
+    environment: null
+global:
+  application_name: Mapify_2
+  default_ec2_keyname: mapify-aws
+  default_platform: Node.js
+  default_region: us-west-2
+  profile: eb-cli
+  sc: git
+container_commands:
+  createdb:
+    command: 'npm run db:create'
+    leader_only: true
