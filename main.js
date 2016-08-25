@@ -25,7 +25,6 @@ if (env === 'production') {
                                       +process.env.RDS_PORT+"/"
                                       +process.env.RDS_DB_NAME;
 
-  console.log("RDS connection string: " + connectionString);
   var db = massive.connectSync({connectionString : connectionString});
   app.set("db", db);
   http.createServer(app).listen(process.env.PORT);
