@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 
 var session = require('express-session');
 
-
 var passport = require('passport'); // For google oauth
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
@@ -45,7 +44,7 @@ if (env === 'production') {
 passport.use(new GoogleStrategy({ // authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://mapify.us-west-2.elasticbeanstalk.com/auth/google/callback"
+  callbackURL: "http://mapify2-env.us-west-2.elasticbeanstalk.com/auth/google/callback"
 },
 function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);
