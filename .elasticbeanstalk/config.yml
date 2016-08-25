@@ -10,5 +10,5 @@ global:
   sc: git
 container_commands:
   createdb:
-    command: 'npm run db:create'
+    command: 'npm run db:create &> /var/log/container_commands.log'
     leader_only: true
