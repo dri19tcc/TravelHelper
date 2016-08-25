@@ -32,14 +32,14 @@ if (env === 'production') {
 
   var db = massive.connectSync({connectionString : connectionString});
   app.set("db", db);
-  http.createServer(app).listen(process.env.PORT);
+  // http.createServer(app).listen(process.env.PORT);
 } else if (env === 'development') {
   console.log("starting in development mode");
   var dotenv = require('dotenv').config(); // Use to keep keys secret (console.log(process.env);)
   var connectionString = "postgres://localhost:5432/travel_helper";
   var db = massive.connectSync({connectionString : connectionString});
   app.set("db", db);
-  http.createServer(app).listen(8080);
+  // http.createServer(app).listen(8080);
 }
 
 passport.use(new GoogleStrategy({ // authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
