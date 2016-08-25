@@ -7,7 +7,7 @@ var Trip = function(trip) {
 
 module.exports = Trip
 
-var app = require('../app');
+var app = require('../main');
 var db = app.get('db');
 var Activity = require('./activity');
 

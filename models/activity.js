@@ -11,7 +11,7 @@ var Activity = function(activity) {
 
 module.exports = Activity;
 
-var app = require('../app');
+var app = require('../main');
 var db = app.get('db');
 var Trip = require('./trip');
 

@@ -1,4 +1,4 @@
-var app = require('../app');
+var app = require('../main');
 var db = app.get('db');
 
 var User = function (user) {
