@@ -1,5 +1,11 @@
 var massive = require('massive');
-var connectionString = "postgres://mapify.us-west-2.elasticbeanstalk.com/travel_helper";
+
+var env = process.env.NODE_ENV || 'development';
+if (env === 'production') {
+  var connectionString = "postgres://localhost:27253/travel_helper";
+} else {
+  var connectionString = "postgres://mapify.us-west-2.elasticbeanstalk.com/travel_helper";
+}
 
 var db = massive.connectSync({connectionString : connectionString});
 
