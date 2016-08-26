@@ -11,6 +11,7 @@ if (env === 'production') {
   var connectionString = "postgres://mapify.us-west-2.elasticbeanstalk.com/travel_helper";
 }
 
+console.log(connectionString);
 var db = massive.connectSync({connectionString : connectionString});
 
 db.setup.schema([], function(err, res) {
