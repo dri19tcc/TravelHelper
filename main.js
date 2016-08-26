@@ -27,7 +27,7 @@ if (env === 'production') {
   var connectionString = "postgres://"+process.env.USERNAME+":"
                                       +process.env.PASSWORD+"@"
                                       +process.env.HOSTNAME+":"
-                                      +process.env.PORT+"/"
+                                      +process.env.DB_PORT+"/"
                                       +process.env.DB_NAME;
 
   var db = massive.connectSync({connectionString : connectionString});
