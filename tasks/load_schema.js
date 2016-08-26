@@ -8,7 +8,7 @@ if (env === 'production') {
                                       +process.env.PORT+"/"
                                       +process.env.DB_NAME;
 } else {
-  var connectionString = "postgres://mapify.us-west-2.elasticbeanstalk.com/travel_helper";
+  var connectionString = "postgres://localhost:5432/travel_helper";
 }
 
 console.log(connectionString);
