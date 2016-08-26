@@ -22,6 +22,7 @@ console.log(process.env)
 console.log('----------------------------------------')
 
 if (env === 'production') {
+  var dotenv = require('dotenv').config(); // Use to keep keys secret (console.log(process.env);)
   console.log("starting in production mode, listening on port " + process.env.PORT);
   var connectionString = "postgres://"+process.env.USERNAME+":"
                                       +process.env.PASSWORD+"@"
