@@ -23,11 +23,11 @@ console.log('----------------------------------------')
 
 if (env === 'production') {
   console.log("starting in production mode, listening on port " + process.env.PORT);
-  var connectionString = "postgres://"+process.env.RDS_USERNAME+":"
-                                      +process.env.RDS_PASSWORD+"@"
-                                      +process.env.RDS_HOSTNAME+":"
-                                      +process.env.RDS_PORT+"/"
-                                      +process.env.RDS_DB_NAME;
+  var connectionString = "postgres://"+process.env.USERNAME+":"
+                                      +process.env.PASSWORD+"@"
+                                      +process.env.HOSTNAME+":"
+                                      +process.env.PORT+"/"
+                                      +process.env.DB_NAME;
 
   var db = massive.connectSync({connectionString : connectionString});
   app.set("db", db);
