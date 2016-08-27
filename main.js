@@ -39,8 +39,9 @@ if (env === 'production') {
 passport.use(new GoogleStrategy({ // authentication strategy authenticates users using a Google account and OAuth 2.0 tokens
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://adrianacannon.com/auth/google/callback"
+  callbackURL: process.env.CALLBACKURL
 },
+
 function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);
 }));
