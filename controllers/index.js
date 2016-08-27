@@ -13,7 +13,7 @@ IndexController = {
         } else {
           var loggedIn = req.session.passport ? true : false;
           res.render('index', {
-            title: "Travel Helper",
+            title: "Mapify",
             loggedIn: loggedIn,  // This is for the sign in/logout feature
             username: result.name,
             image: result.image_url
@@ -23,7 +23,7 @@ IndexController = {
     } else {
       var loggedIn = req.session.passport ? true : false;
       res.render('index', {
-        title: "Travel Helper",
+        title: "Mapify",
         loggedIn: loggedIn  // This is for the sign in/logout feature
       })
     }

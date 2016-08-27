@@ -2,37 +2,39 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/4.1.1/normalize.css">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
   </head>
   <body>
-    <div>
-      <div>
-        <nav class="navbar navbar-inverse" role="navigation">
-          <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/trips">Your Trips</a></li> <!-- Does not work yet -->
-            <li><a href="/contact">Contact us</a></li> <!-- Does not work yet -->
-          </ul>
-          <ul class="nav navbar-nav navbar-right" role="navigation" style="padding: 0 3rem;">
-            <% if (!loggedIn) { %>
-              <li><a href="/auth/google">Sign In</a></li>
+    <div class="container">
+      <nav class="navbar" role="navigation">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/trips">Your Trips</a></li> <!-- Does not work yet -->
+          <li><a href="/contact">Contact us</a></li> <!-- Does not work yet -->
+        </ul>
+        <ul class="nav navbar-nav navbar-right" role="navigation" style="padding: 0 3rem;">
+          <% if (!loggedIn) { %>
+            <li><a href="/auth/google">Sign In</a></li>
             <% } else { %>
               <img src="<%= image %>"/>
               <li><a href="/logout">Sign Out</a></li>
-            <% } %>
-          </ul>
-        </nav>
+              <% } %>
+            </ul>
+          </nav>
+      <h1><%= title %></h1>
+      <div>
       </div>
       <br/>
-      <h1><%= title %></h1>
       <% if (loggedIn) { %>
         <h4>Hello <%= username %></h4>
       <% } %>
       <div class="jumbotron"> <p>
-        <p>Welcome to <%= title %></p>
-        This will tell you all about my site.  Lots of words will go here and it will hopefully get to the point quickly.  I'm excited for this project, hopefully I can get lots of stuff done as well as make it as cool as I imagine it in my head.
-      </p></div>
+        <p><%= title %> Your Life</p>
+          <%= title %> is a site that allows you to bring
+        </p>
+      </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
