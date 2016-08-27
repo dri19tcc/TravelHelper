@@ -1,45 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/4.1.1/normalize.css">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
-  </head>
-  <body>
-    <div class="container">
-      <nav class="navbar" role="navigation">
-        <ul class="nav navbar-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/trips">Your Trips</a></li> <!-- Does not work yet -->
-          <li><a href="/contact">Contact us</a></li> <!-- Does not work yet -->
-        </ul>
-        <ul class="nav navbar-nav navbar-right" role="navigation" style="padding: 0 3rem;">
-          <% if (!loggedIn) { %>
-            <li><a href="/auth/google">Sign In</a></li>
-            <% } else { %>
-              <img src="<%= image %>"/>
-              <li><a href="/logout">Sign Out</a></li>
-              <% } %>
-            </ul>
-          </nav>
-      <h1><%= title %></h1>
-      <div>
-      </div>
-      <br/>
-      <% if (loggedIn) { %>
-        <h4>Hello <%= username %></h4>
-      <% } %>
-      <div class="jumbotron"> <p>
-        <p><%= title %> Your Life</p>
-          <%= title %> is a site that allows you to bring
-        </p>
-      </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script> <!-- Brings in Bootstrap -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- This is to use OAuth sign in -->
+<%- include('./_layout') %>
 
-  </body>
-</html>
+<div class="jumbotron"> <p>
+  <p><%= title %> Your Life</p>
+    <%= title %> is a site that allows you to bring
+  </p>
+</div>
+
+<%- include('./_footer') %>

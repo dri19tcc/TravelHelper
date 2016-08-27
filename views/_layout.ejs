@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/4.1.1/normalize.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar" role="navigation">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/trips">Your Trips</a></li>
+          <!-- <li><a href="/contact">Contact us</a></li> -->
+        </ul>
+        <ul class="nav navbar-nav navbar-right" role="navigation" style="padding: 0 3rem;">
+          <% if (!loggedIn) { %>
+            <li><a href="/auth/google">Sign In</a></li>
+          <% } else { %>
+            <img src="<%= image %>"/>
+            <li><a href="/logout">Sign Out</a></li>
+          <% } %>
+        </ul>
+      </nav>
+      <h1><%= title %></h1>
+      <% if (loggedIn) { %>
+        <h4>Hello <%= username %></h4>
+      <% } %>
