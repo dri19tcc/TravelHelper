@@ -2,7 +2,7 @@ body {
   margin: 0;
   text-align: center;
   background: #e5e3df;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: #737373;
 }
 
@@ -16,9 +16,12 @@ body {
 
 .navbar {
   background-color: #d3d4f3;
-  /*color: #737373;*/
 }
 
 .jumbotron {
   background-color: #d3d4f3;
+}
+
+.jumbotron p {
+  font-size: 17px;
 }

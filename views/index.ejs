@@ -1,9 +1,24 @@
 
 <%- include('./_layout') %>
 
+<% if (loggedIn) { %>
+  <h6>Hello <%= username %></h6>
+<% } %>
+
 <div class="jumbotron"> <p>
-  <p><%= title %> Your Life</p>
-    <%= title %> is a site that allows you to bring
+  <h3><%= title %> Your Life</h3>
+  <p>
+    <%= title %> is a site that allows you to bring maps into your everyday life.
+    Is there a trip you will be taking soon?  <%= title %> will let you add
+    pins on a map so you can see activities that you would like to do around the
+    city.  Using <%= title %>, you can see where different activities are in
+    relation to each other.  You can also mark activities as completed.
+  </p>
+  <p>
+    <%= title %> is not just for when you are planning a trip, it can also help
+    you plan things around your own city.  Are you an avid hiker? You can use
+    <%= title %> to help keep track of those hikes.  Restaurants, breweries,
+    wineries, the options are endless.  <%= title %> can help map out your life.
   </p>
 </div>
 
