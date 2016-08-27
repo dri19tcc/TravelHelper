@@ -12,6 +12,8 @@ IndexController = {
           next(error);
         } else {
           var loggedIn = req.session.passport ? true : false;
+          req.session.username = result.name;
+          req.session.image_url = result.image_url;
           res.render('index', {
             title: "Mapify",
             loggedIn: loggedIn,  // This is for the sign in/logout feature
@@ -44,8 +46,11 @@ IndexController = {
   },
 
   newTrips: function(req, res) {
-    var loggedIn = req.session.passport ? true : false;
     var google_id = req.session.passport.user.id;
+    var loggedIn = req.session.passport ? true : false;
+    var username = req.session.username;
+    var image_url = req.session.image_url;
+
     Trips.find_all(google_id, function(error, result) {
       if (error) {
         new Error(error);
@@ -53,7 +58,9 @@ IndexController = {
         res.render('trips', {
           title: "Travel Helper",
           trips: result,
-          loggedIn: loggedIn
+          loggedIn: loggedIn,
+          username: username,
+          image: image_url
         })
       }
     });
@@ -76,6 +83,8 @@ IndexController = {
   showTrip: function(req, res) { //database call, look up current trip, and the map and all the points
     var tripID = req.params.id;
     var loggedIn = req.session.passport ? true : false;
+    var username = req.session.username;
+    var image_url = req.session.image_url;
 
     Trips.findOneTrip(tripID, function(error, trip) {
       if(error) {
@@ -86,7 +95,9 @@ IndexController = {
           title: "Travel Helper",
           trip: trip,
           loggedIn: loggedIn,
-          tagID: tripID
+          tagID: tripID,
+          username: username,
+          image: image_url
         })
       };
     });
