@@ -78,3 +78,15 @@ Activity.addNewActivity = function(activity, callback) {
     }
   });
 }
+
+Activity.countAll = function(callback) { // need to limit by current user
+  db.run('SELECT tag_id, COUNT(activity_google_id) FROM activity_tag GROUP BY tag_id ORDER BY tag_id', function(error, result) {
+    if (error) {
+      console.log("in activity error");
+      callback(error, undefined);
+    } else {
+      console.log("in activity yay");
+      callback(null, result);
+    }
+  });
+}

@@ -55,13 +55,16 @@ IndexController = {
       if (error) {
         new Error(error);
       } else {
-        res.render('trips', {
-          title: "Travel Helper",
-          trips: result,
-          loggedIn: loggedIn,
-          username: username,
-          image: image_url
-        })
+        Activity.countAll(function(err, counts) {
+          res.render('trips', {
+            title: "Mapify",
+            trips: result,
+            loggedIn: loggedIn,
+            username: username,
+            image: image_url,
+            activityCounts: counts
+          });
+        });
       }
     });
   },
@@ -92,7 +95,7 @@ IndexController = {
         err.status = 500;
       } else {
         res.render('maptrip', {
-          title: "Travel Helper",
+          title: "Mapify",
           trip: trip,
           loggedIn: loggedIn,
           tagID: tripID,
