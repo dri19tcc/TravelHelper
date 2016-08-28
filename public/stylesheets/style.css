@@ -25,3 +25,24 @@ body {
 .jumbotron p {
   font-size: 17px;
 }
+
+.card {
+  background-color: white;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-style: solid;
+  border-width: medium;;
+  border-color: #d3d4f3;
+}
+
+.card p {
+  margin-top: 5px;
+}
+
+.create-trip {
+  text-align: left;
+}
+
+.left {
+  text-align: left;
+}

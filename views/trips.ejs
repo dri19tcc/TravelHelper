@@ -1,25 +1,27 @@
 <%- include('./_layout') %>
 
-<h5>Create a New Trip</h5>
 
-<form action="trips/new" method="post">
-  <label>Name of Trip: </label>
-  <input type="text" name="name" placeholder="Insert Text Here" >
+<form class="create-trip" action="trips/new" method="post">
+  <h3>Create a New Trip</h3>
+  <input type="text" name="name" placeholder="Trip Name" >
 
-  <input class="btn btn-secondary" type="submit" value="Submit">
+  <input class="btn btn-secondary" type="submit" value="New Trip">
 </form>
 
-<%= JSON.stringify(activityCounts[0]) %>
+<h3 class="left">Your Trips (<%= trips.length %>)</h3>
 
 <div class="row">
   <% for(var i=0; i < trips.length; i++) { %>
     <div class="col-md-4">
-      <p>
-        <a href='<%= "/trips/" + trips[i].tripID %>'><%= trips[i].tripName %></a>
-      </p>
-      <p>
-        <%= trips[i].tripUpdate %>
-      </p>
+      <div class="col-md-12 card">
+        <h4>
+          <a href='<%= "/trips/" + trips[i].tripID %>'><%= trips[i].tripName %></a>
+        </h4>
+        <a href='<%= "/trips/" + trips[i].tripID %>'><img src="/images/greenlake_map.png" width="250px"/></a>
+        <p>
+          Number of Activities: <%= activityCounts[trips[i].tripID].count %>
+        </p>
+      </div>
     </div>
   <% } %>
 </div>

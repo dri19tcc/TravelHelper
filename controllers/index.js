@@ -1,6 +1,7 @@
 var Index = require('../models/index');
 var Trips = require('../models/trip');
 var Activity = require('../models/activity');
+var _ = require('lodash');
 
 IndexController = {
 
@@ -56,13 +57,16 @@ IndexController = {
         new Error(error);
       } else {
         Activity.countAll(function(err, counts) {
+          var activityCounts = _.keyBy(counts, function(ac) { // lodash is kinda cool, makes a hashmap
+            return ac.tag_id;
+          });
           res.render('trips', {
             title: "Mapify",
             trips: result,
             loggedIn: loggedIn,
             username: username,
             image: image_url,
-            activityCounts: counts
+            activityCounts: activityCounts
           });
         });
       }
