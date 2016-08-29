@@ -15,26 +15,30 @@
 <section id="toDo">
 
   <% var activities = trip.activities %>
-  <% for(var i = 0; i < activities.length; i++) { %>
-    <div class="<%= activities[i].google_id %>">
-      <p><a href='#'><%= activities[i].name %></a></p>
-      <p><%= activities[i].address %></p>
-      <p><%= activities[i].phone %></p>
-      <p><a href='<%= activities[i].website %>'>Website</a></p>
-      <p>
-        <form class="deleteActivity">
-          <input type="hidden" name="tagID" value="<%= trip.id %>">
-          <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
-          <input class="btn btn-secondary" type="submit" value="Delete"/>
-        </form>
-        <form class="completedActivity">
-          <input type="hidden" name="tagID" value="<%= trip.id %>">
-          <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
-          <input class="btn btn-secondary" type="submit" value="Completed"/>
-        </form>
-      </p>
-    </div>
-  <% } %>
+  <div class="row">
+    <% for(var i = 0; i < activities.length; i++) { %>
+      <div class="col-md-3">
+        <div class="col-md-12 mapcard">
+          <div class="<%= activities[i].google_id %>">
+            <p class="overflow"><strong><%= activities[i].name %></strong></p>
+            <p><a href='<%= activities[i].website %>'>Website</a></p>
+            <p>
+              <form class="deleteActivity">
+                <input type="hidden" name="tagID" value="<%= trip.id %>">
+                <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
+                <input class="btn btn-secondary" type="submit" value="Delete"/>
+              </form>
+              <form class="completedActivity">
+                <input type="hidden" name="tagID" value="<%= trip.id %>">
+                <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
+                <input class="btn btn-secondary" type="submit" value="Completed"/>
+              </form>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
 
 </section>
 

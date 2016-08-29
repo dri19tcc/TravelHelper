@@ -66,7 +66,8 @@ IndexController = {
             loggedIn: loggedIn,
             username: username,
             image: image_url,
-            activityCounts: activityCounts
+            activityCounts: activityCounts,
+            image_urls: ["greenlake_map.png", "new_york_map.png", "san_francisco_map.png"] 
           });
         });
       }

@@ -46,3 +46,17 @@ body {
 .left {
   text-align: left;
 }
+
+.mapcard {
+  background-color: white;
+  margin-top: 30px;
+  margin-left: 15px;
+  margin-right: 15px;
+  border-style: solid;
+  border-width: medium;;
+  border-color: #d3d4f3;
+}
+
+.mapcard p {
+  margin-top: 15px;
+}
