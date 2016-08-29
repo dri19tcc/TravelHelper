@@ -14,7 +14,7 @@ router.get('/trips/findActivities', Controller.findAllActivitiesByTag); //api
 
 router.post('/trips/addActivity', Controller.addActivity); //api
 
-router.post('/trips/new', Controller.createTrip);
+router.post('/trips/new', Controller.isLoggedIn, Controller.createTrip);
 
 router.get('/trips/:id', Controller.showTrip);
 
