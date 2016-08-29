@@ -19,7 +19,7 @@
         </h4>
         <a href='<%= "/trips/" + trips[i].tripID %>'><img src="/images/greenlake_map.png" width="250px"/></a>
         <p>
-          Number of Activities: <%= activityCounts[trips[i].tripID].count %>
+          Number of Activities: <%= activityCounts ? activityCounts[trips[i].tripID].count : 0 %>
         </p>
       </div>
     </div>
