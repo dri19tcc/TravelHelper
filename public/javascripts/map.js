@@ -350,7 +350,6 @@ $('.addActivity').on('submit', function(event) {
   var tagID = event.target.children.id.value;
   selectedActivity.tagID = tagID;
 
-  // $("#toDo").empty();
   $.post( "/trips/addActivity", selectedActivity, function(data) {
     initMap();
     addMarkersFromDatabase();
@@ -449,19 +448,19 @@ function makeBoundsForMap(lat, long) {
 function addToDo(activity, tagID) {
   $("#toDo .row").append( // first line works with .name, switching to .id
     '<div class="col-md-3">' +
-      '<div class="col-md-12 mapcard">' +
-        '<div class="' + activity.google_id + '">' +
-          '<p><a href="#">' + activity.name + '</a></p>' +
+      '<div class="col-md-12">' +
+        '<div class="' + activity.google_id + ' mapcard">' +
+          '<p class="overflow"><strong>' + activity.name + '</strong></p>' +
           '<p><a href="' + activity.website + '" target="_blank">Website</a></p>' +
           '<form class="deleteActivity">' +
           '<input type="hidden" name="tagID" value="' + tagID + '">' +
           '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
-          '<p><input class="btn btn-secondary" type="submit" value="Delete"/></p>' +
+          '<p><input class="btn btn-outline-secondary btn-xs mtd-btn" type="submit" value="Delete"/></p>' +
           '</form>' +
           '<form class="completedActivity">' +
           '<input type="hidden" name="tagID" value="' + tagID + '">' +
           '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
-          '<p><input class="btn btn-secondary" type="submit" value="completed"/></p>' +
+          '<p><input class="btn btn-outline-secondary btn-xs mtc-btn" type="submit" value="completed"/></p>' +
           '</form>' +
         '</div>' +
       '</div>' +

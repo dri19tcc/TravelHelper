@@ -19,22 +19,20 @@
   <div class="row">
     <% for(var i = 0; i < activities.length; i++) { %>
       <div class="col-md-3">
-        <div class="col-md-12 mapcard">
-          <div class="<%= activities[i].google_id %>">
+        <div class="col-md-12">
+          <div class="<%= activities[i].google_id %> mapcard">
             <p class="overflow"><strong><%= activities[i].name %></strong></p>
             <p><a href='<%= activities[i].website %>' target="_blank">Website</a></p>
-            <p>
-              <form class="deleteActivity">
-                <input type="hidden" name="tagID" value="<%= trip.id %>">
-                <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
-                <input class="btn btn-outline-secondary btn-xs mtd-btn" type="submit" value="Delete"/>
-              </form>
-              <form class="completedActivity">
-                <input type="hidden" name="tagID" value="<%= trip.id %>">
-                <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
-                <input class="btn btn-outline-secondary btn-xs mtc-btn" type="submit" value="Completed"/>
-              </form>
-            </p>
+            <form class="deleteActivity">
+              <input type="hidden" name="tagID" value="<%= trip.id %>">
+              <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
+              <input class="btn btn-outline-secondary btn-xs mtd-btn" type="submit" value="Delete"/>
+            </form>
+            <form class="completedActivity">
+              <input type="hidden" name="tagID" value="<%= trip.id %>">
+              <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
+              <input class="btn btn-outline-secondary btn-xs mtc-btn" type="submit" value="Completed"/>
+            </form>
           </div>
         </div>
       </div>

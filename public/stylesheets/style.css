@@ -60,6 +60,7 @@ body {
   border-style: solid;
   border-width: medium;;
   border-color: #d3d4f3;
+  height: 120px;
 }
 
 .mapcard p {
