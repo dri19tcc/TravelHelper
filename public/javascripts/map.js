@@ -414,7 +414,7 @@ function populateInfoWindow(marker, info, tagID, infowindow) {
     infowindow.marker = marker;
     infowindow.setContent(
       '<div class="info-window">' +
-        '<p class="overflow">' + info.name + '</p>' +
+        '<p class="overflow iw-title"><strong>' + info.name + '</strong></p>' +
         '<p>Phone: ' + info.phone + '</p>' +
         '<p class="overflow"><a href="' + info.website + '" target="_blank">' + info.website + '</a></p>' +
         '<form class="deleteActivity">' +
