@@ -123,11 +123,13 @@ body {
   border-style: solid;
   border-color: #d3d4f3;
   border-width: thin;
+  border-radius: 0px;
 }
 
 .btn-outline-secondary:hover {
   background-color: #d3d4f3;
   color: #737373;
+  border-radius: 0px;
 }
 
 a {
