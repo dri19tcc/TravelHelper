@@ -338,7 +338,7 @@ $(document).on('submit', '.deleteActivity', function(event) { //everything now h
   var activityToDeleteID = event.target.children.google_id.value;
   var activityDeleteHashID = {google_id: activityToDeleteID}
   $.post("/trips/" + tagID + "/deleteActivity", activityDeleteHashID, function() {
-    $("." + activityToDeleteID).remove();
+    $("." + activityToDeleteID).parent().parent().remove();
     latLngBounds = [];
     initMap();
     addMarkersFromDatabase();
