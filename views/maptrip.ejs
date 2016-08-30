@@ -9,7 +9,7 @@
   <form class="addActivity">
     <input id="search-within-time-text" type="text" name="name" placeholder="Fremont Brewing Company or Statue of Liberty" style="width: 420px;">
     <input type="hidden" name="id" value="<%= trip.id %>" >
-    <input id="search-within-time" type="submit" value="Submit">
+    <input id="search-within-time" class="btn btn-outline-secondary" type="submit" value="Add">
   </form>
 </div>
 
@@ -27,12 +27,12 @@
               <form class="deleteActivity">
                 <input type="hidden" name="tagID" value="<%= trip.id %>">
                 <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
-                <input class="btn btn-secondary" type="submit" value="Delete"/>
+                <input class="btn btn-outline-secondary btn-xs mtd-btn" type="submit" value="Delete"/>
               </form>
               <form class="completedActivity">
                 <input type="hidden" name="tagID" value="<%= trip.id %>">
                 <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
-                <input class="btn btn-secondary" type="submit" value="Completed"/>
+                <input class="btn btn-outline-secondary btn-xs mtc-btn" type="submit" value="Completed"/>
               </form>
             </p>
           </div>

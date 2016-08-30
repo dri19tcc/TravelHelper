@@ -107,3 +107,33 @@ body {
   margin: auto 10px;
   float: right;
 }
+
+.mtc-btn {
+  float: right;
+  margin: 0px 35px 8px 0px;
+}
+
+.mtd-btn {
+  float: left;
+  margin: 0px 0px 8px 35px;
+}
+
+.btn-outline-secondary {
+  background-color: white;
+  border-style: solid;
+  border-color: #d3d4f3;
+  border-width: thin;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #d3d4f3;
+  color: #737373;
+}
+
+a {
+  color: #737373;
+}
+
+.footer {
+  margin: 50px 0px 0px 0px;
+}

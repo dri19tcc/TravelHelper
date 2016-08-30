@@ -416,7 +416,7 @@ function populateInfoWindow(marker, info, tagID, infowindow) {
       '<div class="info-window">' +
         '<p class="overflow">' + info.name + '</p>' +
         '<p>Phone: ' + info.phone + '</p>' +
-        '<p class="overflow">Website: ' + info.website + '</p>' +
+        '<p class="overflow"><a href="' + info.website + '">' + info.website + '</a></p>' +
         '<form class="deleteActivity">' +
           '<input type="hidden" name="tagID" value="' + tagID + '">' +
           '<input type="hidden" name="google_id" value="' + info.google_id + '">' +
@@ -447,23 +447,25 @@ function makeBoundsForMap(lat, long) {
 }
 
 function addToDo(activity, tagID) {
-  $("#toDo").append( // first line works with .name, switching to .id
-    '<div class="' + activity.google_id + '">' +
-    '<p><a href="#">' + activity.name + '</a></p>' +
-    '<p>' + activity.address + '</p>' +
-    '<p>' + activity.phone + '</p>' +
-    '<p><a href="' + activity.website + '">Website</a></p>' +
-    '<form class="deleteActivity">' +
-    '<input type="hidden" name="tagID" value="' + tagID + '">' +
-    '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
-    '<p><input class="btn btn-secondary" type="submit" value="Delete"/></p>' +
-    '</form>' +
-    '<form class="completedActivity">' +
-    '<input type="hidden" name="tagID" value="' + tagID + '">' +
-    '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
-    '<p><input class="btn btn-secondary" type="submit" value="completed"/></p>' +
-    '</form>' +
-    '</div><br/><br/>'
+  $("#toDo .row").append( // first line works with .name, switching to .id
+    '<div class="col-md-3">' +
+      '<div class="col-md-12 mapcard">' +
+        '<div class="' + activity.google_id + '">' +
+          '<p><a href="#">' + activity.name + '</a></p>' +
+          '<p><a href="' + activity.website + '">Website</a></p>' +
+          '<form class="deleteActivity">' +
+          '<input type="hidden" name="tagID" value="' + tagID + '">' +
+          '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
+          '<p><input class="btn btn-secondary" type="submit" value="Delete"/></p>' +
+          '</form>' +
+          '<form class="completedActivity">' +
+          '<input type="hidden" name="tagID" value="' + tagID + '">' +
+          '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
+          '<p><input class="btn btn-secondary" type="submit" value="completed"/></p>' +
+          '</form>' +
+        '</div>' +
+      '</div>' +
+    '</div>'
   )
 }
 
