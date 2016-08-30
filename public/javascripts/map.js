@@ -416,7 +416,7 @@ function populateInfoWindow(marker, info, tagID, infowindow) {
       '<div class="info-window">' +
         '<p class="overflow">' + info.name + '</p>' +
         '<p>Phone: ' + info.phone + '</p>' +
-        '<p class="overflow"><a href="' + info.website + '">' + info.website + '</a></p>' +
+        '<p class="overflow"><a href="' + info.website + '" target="_blank">' + info.website + '</a></p>' +
         '<form class="deleteActivity">' +
           '<input type="hidden" name="tagID" value="' + tagID + '">' +
           '<input type="hidden" name="google_id" value="' + info.google_id + '">' +
@@ -452,7 +452,7 @@ function addToDo(activity, tagID) {
       '<div class="col-md-12 mapcard">' +
         '<div class="' + activity.google_id + '">' +
           '<p><a href="#">' + activity.name + '</a></p>' +
-          '<p><a href="' + activity.website + '">Website</a></p>' +
+          '<p><a href="' + activity.website + '" target="_blank">Website</a></p>' +
           '<form class="deleteActivity">' +
           '<input type="hidden" name="tagID" value="' + tagID + '">' +
           '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
