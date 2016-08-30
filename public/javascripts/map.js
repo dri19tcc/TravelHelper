@@ -384,7 +384,9 @@ function addMarkers(location, tagID) {
     map: map
   });
 
-  var largeInfowindow = new google.maps.InfoWindow(); // adding in an info window
+  var largeInfowindow = new google.maps.InfoWindow({
+    maxWidth: 200
+  }); // adding in an info window
 
   marker.addListener('click', function() {
     populateInfoWindow(this, location, tagID, largeInfowindow);
@@ -411,7 +413,10 @@ function populateInfoWindow(marker, info, tagID, infowindow) {
   if (infowindow.marker != marker) { // Check to make sure the infowindow is not already opened on this marker.
     infowindow.marker = marker;
     infowindow.setContent(
-      '<div><p>' + info.name + '</p><p>Phone: ' + info.phone + '</p><p>Website: ' + info.website + '</p>' +
+      '<div class="info-window">' +
+        '<p class="overflow">' + info.name + '</p>' +
+        '<p>Phone: ' + info.phone + '</p>' +
+        '<p class="overflow">Website: ' + info.website + '</p>' +
         '<form class="deleteActivity">' +
           '<input type="hidden" name="tagID" value="' + tagID + '">' +
           '<input type="hidden" name="google_id" value="' + info.google_id + '">' +
