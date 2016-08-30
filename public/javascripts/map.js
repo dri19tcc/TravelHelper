@@ -385,7 +385,7 @@ function addMarkers(location, tagID) {
   });
 
   var largeInfowindow = new google.maps.InfoWindow({
-    maxWidth: 200
+    maxWidth: 150
   }); // adding in an info window
 
   marker.addListener('click', function() {
