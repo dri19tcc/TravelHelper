@@ -364,6 +364,11 @@ $(document).on('submit', '.completedActivity', function(event) {
     tagID: event.target.children.tagID.value,
     google_id: event.target.children.google_id.value
   }
+  if ($(event.target.children.visit_status).val() === "Visited") {
+    $(event.target.children.visit_status).val("Not Visited")
+  } else {
+    $(event.target.children.visit_status).val("Visited")
+  }
   $.post("/trips/" + idsToSend.tagID + "/completeActivity", idsToSend, function(data) {
     initMap();
     addMarkersFromDatabase();

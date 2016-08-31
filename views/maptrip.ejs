@@ -15,7 +15,9 @@
 
 <section id="toDo">
 
+
   <% var activities = trip.activities %>
+
   <div class="row">
     <% for(var i = 0; i < activities.length; i++) { %>
       <div class="col-md-3">
@@ -31,7 +33,7 @@
             <form class="completedActivity">
               <input type="hidden" name="tagID" value="<%= trip.id %>">
               <input type="hidden" name="google_id" value="<%= activities[i].google_id %>">
-              <input class="btn btn-outline-secondary btn-xs mtc-btn" type="submit" value="Completed"/>
+              <input class="btn btn-outline-secondary btn-xs mtc-btn" type="submit" name="visit_status" value='<%= activities[i].completed ? "Visited" : "Not Visited"%>'/>
             </form>
           </div>
         </div>
