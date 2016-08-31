@@ -12,17 +12,19 @@ body {
   border-style: solid;
   border-width: medium;;
   border-color: #d3d4f3;
-  margin: 20px auto;
+  margin: 50px 0 0 0;
 }
 
 .navbar {
   background-color: #d3d4f3;
   border-radius: 0px;
+  margin-bottom: 50px;
 }
 
 .container .jumbotron {
   background-color: #d3d4f3;
   border-radius: 0px;
+  margin: 50px;
 }
 
 .jumbotron p {
@@ -138,6 +140,8 @@ a {
 
 .footer {
   margin: 50px 0px 0px 0px;
+  font-size: 10px;
+  background-color: #e5e3df;
 }
 
 .iw-title {
