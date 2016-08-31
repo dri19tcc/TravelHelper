@@ -59,6 +59,7 @@ body {
   border-width: medium;;
   border-color: #d3d4f3;
   height: 120px;
+  padding: 0 15px;
 }
 
 .mapcard p {

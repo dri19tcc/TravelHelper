@@ -452,7 +452,7 @@ function makeBoundsForMap(lat, long) {
 
 function addToDo(activity, tagID) {
   $("#toDo .row").append( // first line works with .name, switching to .id
-    '<div class="col-md-3">' +
+    '<div class="col-lg-3 col-md-4 col-sm-6">' +
       '<div class="col-md-12">' +
         '<div class="' + activity.google_id + ' mapcard">' +
           '<p class="overflow"><strong>' + activity.name + '</strong></p>' +
