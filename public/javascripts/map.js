@@ -416,11 +416,13 @@ function addMarkersFromDatabase() {
 function populateInfoWindow(marker, info, tagID, infowindow) {
   if (infowindow.marker != marker) { // Check to make sure the infowindow is not already opened on this marker.
     infowindow.marker = marker;
+    var phone_display = info.phone ? '<p>Phone: ' + info.phone + '</p>' : "";
+    var website_display = info.website ? '<p class="overflow"><a href="' + info.website + '" target="_blank">' + info.website + '</a></p>' : "";
     infowindow.setContent(
       '<div class="info-window">' +
         '<p class="overflow iw-title"><strong>' + info.name + '</strong></p>' +
-        '<p>Phone: ' + info.phone + '</p>' +
-        '<p class="overflow"><a href="' + info.website + '" target="_blank">' + info.website + '</a></p>' +
+         phone_display +
+         website_display +
         '<form class="deleteActivity">' +
           '<input type="hidden" name="tagID" value="' + tagID + '">' +
           '<input type="hidden" name="google_id" value="' + info.google_id + '">' +
