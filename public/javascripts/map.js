@@ -351,6 +351,7 @@ $('.addActivity').on('submit', function(event) {
   selectedActivity.tagID = tagID;
 
   $.post( "/trips/addActivity", selectedActivity, function(data) {
+    selectedActivity = {};
     initMap();
     addMarkersFromDatabase();
     addToDo(data, tagID);
@@ -364,6 +365,7 @@ $(document).on('submit', '.completedActivity', function(event) {
     tagID: event.target.children.tagID.value,
     google_id: event.target.children.google_id.value
   }
+  console.log(event.target.children);
   if ($(event.target.children.visit_status).val() === "Visited") {
     $(event.target.children.visit_status).val("Not Visited")
   } else {
@@ -453,6 +455,8 @@ function makeBoundsForMap(lat, long) {
 }
 
 function addToDo(activity, tagID) {
+  activity.completed = false;
+  console.log("This is activity in addToDo", activity);
   $("#toDo .row").append( // first line works with .name, switching to .id
     '<div class="col-lg-3 col-md-4 col-sm-6">' +
       '<div class="col-md-12">' +
@@ -467,7 +471,7 @@ function addToDo(activity, tagID) {
           '<form class="completedActivity">' +
           '<input type="hidden" name="tagID" value="' + tagID + '">' +
           '<input type="hidden" name="google_id" value="' + activity.google_id + '">' +
-          '<p><input class="btn btn-outline-secondary btn-xs mtc-btn" type="submit" value="completed"/></p>' +
+          '<input class="btn btn-outline-secondary btn-xs mtc-btn" type="submit" name="visit_status" value="Not Visited">' +
           '</form>' +
         '</div>' +
       '</div>' +
